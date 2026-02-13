@@ -17,20 +17,31 @@ function openNavigation(provider) {
     tmap: `tmap://route?goalname=${encodeURIComponent(STORE.name)}&goalx=${STORE.lng}&goaly=${STORE.lat}`,
     kakao: `kakaonavi://navigate?name=${encodeURIComponent(STORE.name)}&x=${STORE.lng}&y=${STORE.lat}`,
   };
-  const webFallback = `https://map.kakao.com/link/to/${encodeURIComponent(STORE.name)},${STORE.lat},${STORE.lng}`;
+
+  const webFallbackByProvider = {
+    tmap: NAVER_MAP_SEARCH_URL,
+    kakao: `https://map.kakao.com/link/to/${encodeURIComponent(STORE.name)},${STORE.lat},${STORE.lng}`,
+  };
+
   const appLink = appLinks[provider];
+  if (!appLink) {
+    window.open(NAVER_MAP_SEARCH_URL, "_blank", "noopener,noreferrer");
+    return;
+  }
+
+  const fallbackUrl = webFallbackByProvider[provider] || NAVER_MAP_SEARCH_URL;
   const startedAt = Date.now();
 
   window.location.href = appLink;
   window.setTimeout(() => {
     if (Date.now() - startedAt < 1600) {
-      window.open(webFallback, "_blank", "noopener,noreferrer");
+      window.open(fallbackUrl, "_blank", "noopener,noreferrer");
     }
   }, 1200);
 }
 
 function BlogCards() {
-  const { posts, loading, error } = useRssPosts();
+  const { posts, loading, error, refetch } = useRssPosts();
 
   if (loading) {
     return (
@@ -50,6 +61,9 @@ function BlogCards() {
           </a>
           에서 직접 확인해 주세요.
         </p>
+        <button type="button" className="btn btn-primary retry-btn" onClick={refetch}>
+          다시 시도
+        </button>
       </div>
     );
   }
@@ -98,7 +112,7 @@ export default function App() {
                 {link.label}
               </a>
             ))}
-            <a href={`tel:${STORE.phone}`} className="btn btn-primary nav-call">
+            <a href={`tel:${STORE.phone}`} className="btn btn-primary nav-call" aria-label="전화 상담 연결">
               전화 상담
             </a>
           </div>
@@ -196,10 +210,20 @@ export default function App() {
                     </div>
                   </dl>
                   <div className="nav-actions">
-                    <button type="button" className="btn btn-tmap" onClick={() => openNavigation("tmap")}>
+                    <button
+                      type="button"
+                      className="btn btn-tmap"
+                      onClick={() => openNavigation("tmap")}
+                      aria-label="T맵 길안내 열기"
+                    >
                       T맵 길안내
                     </button>
-                    <button type="button" className="btn btn-kakao" onClick={() => openNavigation("kakao")}>
+                    <button
+                      type="button"
+                      className="btn btn-kakao"
+                      onClick={() => openNavigation("kakao")}
+                      aria-label="카카오내비 길안내 열기"
+                    >
                       카카오내비
                     </button>
                     <a href={NAVER_MAP_SEARCH_URL} target="_blank" rel="noopener noreferrer" className="btn btn-naver">

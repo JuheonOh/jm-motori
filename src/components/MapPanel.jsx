@@ -44,8 +44,7 @@ export default function MapPanel() {
       return undefined;
     }
 
-    const existingScript = document.getElementById("naver-map-sdk");
-    const onLoad = () => {
+    const handleLoad = () => {
       if (window.naver?.maps) {
         renderNaverMap(container);
       } else {
@@ -53,26 +52,33 @@ export default function MapPanel() {
       }
     };
 
+    const handleError = () => renderFallback(container);
+    const existingScript = document.getElementById("naver-map-sdk");
+
     if (existingScript) {
       if (window.naver?.maps) {
         renderNaverMap(container);
       } else {
-        existingScript.addEventListener("load", onLoad, { once: true });
-        existingScript.addEventListener("error", () => renderFallback(container), { once: true });
+        existingScript.addEventListener("load", handleLoad, { once: true });
+        existingScript.addEventListener("error", handleError, { once: true });
       }
-      return undefined;
+      return () => {
+        existingScript.removeEventListener("load", handleLoad);
+        existingScript.removeEventListener("error", handleError);
+      };
     }
 
     const script = document.createElement("script");
     script.id = "naver-map-sdk";
     script.async = true;
     script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NAVER_MAP_CLIENT_ID}`;
-    script.addEventListener("load", onLoad, { once: true });
-    script.addEventListener("error", () => renderFallback(container), { once: true });
+    script.addEventListener("load", handleLoad, { once: true });
+    script.addEventListener("error", handleError, { once: true });
     document.head.appendChild(script);
 
     return () => {
-      script.removeEventListener("load", onLoad);
+      script.removeEventListener("load", handleLoad);
+      script.removeEventListener("error", handleError);
     };
   }, []);
 

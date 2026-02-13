@@ -365,6 +365,10 @@ a {
   font-weight: 700;
 }
 
+.retry-btn {
+  margin-top: 0.9rem;
+}
+
 .section-head-center {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -574,4 +578,3 @@ a {
     grid-template-columns: 1fr;
   }
 }
-

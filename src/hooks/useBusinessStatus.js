@@ -5,10 +5,11 @@ function getCurrentStatus() {
   const kst = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
   const day = kst.getDay();
   const minutes = kst.getHours() * 60 + kst.getMinutes();
+
   const isWeekday = day >= 1 && day <= 5;
   const isSaturday = day === 6;
-  const weekdayOpen = minutes >= 510 && minutes <= 1110;
-  const saturdayOpen = minutes >= 540 && minutes <= 900;
+  const weekdayOpen = minutes >= 510 && minutes <= 1110; // 08:30 - 18:30
+  const saturdayOpen = minutes >= 540 && minutes <= 900; // 09:00 - 15:00
   const isOpen = (isWeekday && weekdayOpen) || (isSaturday && saturdayOpen);
 
   return isOpen

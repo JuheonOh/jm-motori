@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BLOG_URL, RSS_URL } from "../constants";
 import fallbackThumb from "../../3.jpg";
+
+const REQUEST_TIMEOUT_MS = 10000;
 
 function toSafeUrl(url, fallback) {
   if (!url) return fallback;
@@ -39,14 +41,24 @@ export function useRssPosts() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [reloadToken, setReloadToken] = useState(0);
+
+  const refetch = useCallback(() => {
+    setReloadToken((prev) => prev + 1);
+  }, []);
 
   useEffect(() => {
+    const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`;
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
     let isMounted = true;
 
     async function fetchPosts() {
-      const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`;
       try {
-        const response = await fetch(proxy);
+        setLoading(true);
+        setError(null);
+
+        const response = await fetch(proxy, { signal: controller.signal });
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}`);
         }
@@ -60,14 +72,15 @@ export function useRssPosts() {
           throw new Error("No RSS items");
         }
 
-        const parsed = items.map((item) => {
+        const parsed = items.map((item, index) => {
           const title = (item.querySelector("title")?.textContent || "제목 없음").trim();
           const link = toSafeUrl(item.querySelector("link")?.textContent?.trim(), BLOG_URL);
           const descriptionHtml = item.querySelector("description")?.textContent || "";
           const summaryRaw = normalizeText(descriptionHtml);
+          const dateLabel = toDateLabel(item.querySelector("pubDate")?.textContent || "");
 
           return {
-            id: `${link}-${title}`,
+            id: `${link}-${index}`,
             title,
             link,
             summary:
@@ -75,25 +88,34 @@ export function useRssPosts() {
                 ? `${summaryRaw.slice(0, 92)}...`
                 : summaryRaw || "포스팅 미리보기가 준비되지 않았습니다.",
             thumbnail: extractThumbnail(descriptionHtml),
-            dateLabel: toDateLabel(item.querySelector("pubDate")?.textContent || ""),
+            dateLabel,
           };
         });
 
         if (!isMounted) return;
         setPosts(parsed);
-        setLoading(false);
       } catch (fetchError) {
         if (!isMounted) return;
+        if (fetchError?.name === "AbortError") {
+          setError(new Error("RSS request timeout"));
+          return;
+        }
         setError(fetchError);
-        setLoading(false);
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     }
 
     fetchPosts();
     return () => {
       isMounted = false;
+      window.clearTimeout(timeoutId);
+      controller.abort();
     };
-  }, []);
+  }, [reloadToken]);
 
-  return { posts, loading, error };
+  return { posts, loading, error, refetch };
 }
+
