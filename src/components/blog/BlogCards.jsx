@@ -4,16 +4,41 @@ import { useRssPosts } from "../../hooks/useRssPosts";
 
 const baseUrl = import.meta.env.BASE_URL;
 const rssFallbackImage = `${baseUrl}assets/images/3.jpg`;
-const INITIAL_VISIBLE_POSTS = 6;
-const LOAD_MORE_STEP = 6;
+const MOBILE_MEDIA_QUERY = "(max-width: 760px)";
+const INITIAL_VISIBLE_POSTS_DESKTOP = 6;
+const INITIAL_VISIBLE_POSTS_MOBILE = 3;
+const LOAD_MORE_STEP_DESKTOP = 6;
+const LOAD_MORE_STEP_MOBILE = 3;
 
 export default function BlogCards() {
   const { posts, loading, error, refetch } = useRssPosts();
-  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_POSTS);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia(MOBILE_MEDIA_QUERY).matches;
+  });
+  const initialVisiblePosts = isMobile ? INITIAL_VISIBLE_POSTS_MOBILE : INITIAL_VISIBLE_POSTS_DESKTOP;
+  const loadMoreStep = isMobile ? LOAD_MORE_STEP_MOBILE : LOAD_MORE_STEP_DESKTOP;
+  const [visibleCount, setVisibleCount] = useState(initialVisiblePosts);
 
   useEffect(() => {
-    setVisibleCount(INITIAL_VISIBLE_POSTS);
-  }, [posts.length]);
+    if (typeof window === "undefined") return undefined;
+
+    const mediaQueryList = window.matchMedia(MOBILE_MEDIA_QUERY);
+    const handleChange = (event) => {
+      setIsMobile(event.matches);
+    };
+
+    setIsMobile(mediaQueryList.matches);
+    mediaQueryList.addEventListener("change", handleChange);
+
+    return () => {
+      mediaQueryList.removeEventListener("change", handleChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    setVisibleCount(initialVisiblePosts);
+  }, [posts.length, initialVisiblePosts]);
 
   if (loading) {
     return (
@@ -89,7 +114,7 @@ export default function BlogCards() {
         ))}
       </div>
 
-      {posts.length > INITIAL_VISIBLE_POSTS && (
+      {posts.length > initialVisiblePosts && (
         <div className="mt-6 flex flex-col items-center gap-3">
           <p className="text-xs text-slate-400">
             {visiblePosts.length} / {posts.length}건 표시 중
@@ -97,7 +122,7 @@ export default function BlogCards() {
           {hasMore ? (
             <button
               type="button"
-              onClick={() => setVisibleCount((prev) => prev + LOAD_MORE_STEP)}
+              onClick={() => setVisibleCount((prev) => prev + loadMoreStep)}
               className="inline-flex items-center justify-center rounded-[10px] border border-[#ffc107]/45 bg-[#ffc107]/10 px-5 py-3 text-sm font-extrabold text-[#ffc107] transition hover:bg-[#ffc107]/20"
             >
               정비 사례 더보기
