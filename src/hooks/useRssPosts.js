@@ -1,8 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
+﻿import { useCallback, useEffect, useState } from "react";
 import { BLOG_URL, RSS_URL } from "../constants";
-import fallbackThumb from "../../3.jpg";
 
+const fallbackThumb = `${import.meta.env.BASE_URL}assets/images/3.jpg`;
 const REQUEST_TIMEOUT_MS = 10000;
+
+const proxyUrls = [
+  `https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`,
+  `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`,
+];
 
 function toSafeUrl(url, fallback) {
   if (!url) return fallback;
@@ -37,6 +42,58 @@ function toDateLabel(pubDateRaw) {
   });
 }
 
+async function fetchWithTimeout(url) {
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  try {
+    return await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        Accept: "application/xml,text/xml,application/json;q=0.9,*/*;q=0.8",
+      },
+    });
+  } finally {
+    window.clearTimeout(timeoutId);
+  }
+}
+
+async function fetchXmlWithFallback() {
+  const errors = [];
+
+  for (const proxyUrl of proxyUrls) {
+    try {
+      const response = await fetchWithTimeout(proxyUrl);
+      if (!response.ok) {
+        errors.push(`${proxyUrl} -> HTTP ${response.status}`);
+        continue;
+      }
+
+      const contentType = response.headers.get("content-type") || "";
+      if (contentType.includes("application/json") || proxyUrl.includes("/get?")) {
+        const data = await response.json();
+        const contents = data?.contents?.trim();
+        if (!contents) {
+          errors.push(`${proxyUrl} -> empty JSON contents`);
+          continue;
+        }
+        return contents;
+      }
+
+      const xmlText = (await response.text())?.trim();
+      if (!xmlText) {
+        errors.push(`${proxyUrl} -> empty response`);
+        continue;
+      }
+      return xmlText;
+    } catch (error) {
+      const reason = error?.name === "AbortError" ? "timeout" : error?.message || "unknown";
+      errors.push(`${proxyUrl} -> ${reason}`);
+    }
+  }
+
+  throw new Error(`RSS proxy fetch failed: ${errors.join(" | ")}`);
+}
+
 export function useRssPosts() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -48,9 +105,6 @@ export function useRssPosts() {
   }, []);
 
   useEffect(() => {
-    const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`;
-    const controller = new AbortController();
-    const timeoutId = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
     let isMounted = true;
 
     async function fetchPosts() {
@@ -58,14 +112,9 @@ export function useRssPosts() {
         setLoading(true);
         setError(null);
 
-        const response = await fetch(proxy, { signal: controller.signal });
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
-        }
-
-        const data = await response.json();
+        const xmlText = await fetchXmlWithFallback();
         const parser = new DOMParser();
-        const xml = parser.parseFromString(data.contents, "text/xml");
+        const xml = parser.parseFromString(xmlText, "text/xml");
         const items = Array.from(xml.querySelectorAll("item")).slice(0, 6);
 
         if (!items.length) {
@@ -96,10 +145,6 @@ export function useRssPosts() {
         setPosts(parsed);
       } catch (fetchError) {
         if (!isMounted) return;
-        if (fetchError?.name === "AbortError") {
-          setError(new Error("RSS request timeout"));
-          return;
-        }
         setError(fetchError);
       } finally {
         if (isMounted) {
@@ -111,11 +156,8 @@ export function useRssPosts() {
     fetchPosts();
     return () => {
       isMounted = false;
-      window.clearTimeout(timeoutId);
-      controller.abort();
     };
   }, [reloadToken]);
 
   return { posts, loading, error, refetch };
 }
-

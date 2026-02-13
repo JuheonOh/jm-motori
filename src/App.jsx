@@ -1,16 +1,13 @@
 import MapPanel from "./components/MapPanel";
-import {
-  BLOG_URL,
-  NAV_LINKS,
-  NAVER_MAP_SEARCH_URL,
-  SERVICES,
-  STORE,
-} from "./constants";
+import { BLOG_URL, NAV_LINKS, NAVER_MAP_SEARCH_URL, SERVICES, STORE } from "./constants";
 import { useBusinessStatus } from "./hooks/useBusinessStatus";
 import { useRssPosts } from "./hooks/useRssPosts";
-import image1 from "../1.jpg";
-import image2 from "../2.jpg";
-import image3 from "../3.jpg";
+
+const baseUrl = import.meta.env.BASE_URL;
+const image1 = `${baseUrl}assets/images/1.jpg`;
+const image2 = `${baseUrl}assets/images/2.jpg`;
+const image3 = `${baseUrl}assets/images/3.jpg`;
+const rssFallbackImage = `${baseUrl}assets/images/3.jpg`;
 
 function openNavigation(provider) {
   const appLinks = {
@@ -74,7 +71,19 @@ function BlogCards() {
         <article className="blog-card" key={post.id}>
           <a href={post.link} target="_blank" rel="noopener noreferrer">
             <div className="blog-thumb-wrap">
-              <img src={post.thumbnail} alt={post.title} className="blog-thumb" loading="lazy" />
+              <img
+                src={post.thumbnail}
+                alt={post.title}
+                className="blog-thumb"
+                loading="lazy"
+                referrerPolicy="no-referrer"
+                onError={(event) => {
+                  const img = event.currentTarget;
+                  if (img.src !== rssFallbackImage) {
+                    img.src = rssFallbackImage;
+                  }
+                }}
+              />
             </div>
             <div className="blog-content">
               <div className="blog-meta">
@@ -125,11 +134,11 @@ export default function App() {
           <div className="container hero-content">
             <p className="hero-chip">GWANGJU BMW·MINI WORKSHOP</p>
             <h1>
-              미니쿠퍼·BMW 전문, <span>정직하고 정확한 정비</span>
+              미니쿠퍼·BMW 전문 <br className="hidden md:block" /> <span>정직하고 정확한 정비</span>
             </h1>
             <p>
-              실제 매장 환경과 네이버 블로그의 최신 정비 사례를 실시간으로 연결해, 방문 전에도 정비 퀄리티를
-              확인할 수 있도록 구성한 JM MOTORI 공식 SPA입니다.
+              실제 매장 환경과 네이버 블로그의 최신 정비 사례를 실시간으로 연결해, 방문 전에도 정비 퀄리티를 확인할 수
+              있도록 구성한 JM MOTORI 공식 SPA입니다.
             </p>
             <div className="hero-actions">
               <a href={`tel:${STORE.phone}`} className="btn btn-primary btn-large">
@@ -163,9 +172,7 @@ export default function App() {
               <div>
                 <p className="section-label">Live Portfolio</p>
                 <h2>네이버 블로그 최신 정비 사례</h2>
-                <p className="section-copy">
-                  ablymotors RSS를 실시간 파싱해 최신 포스팅을 카드로 자동 노출합니다.
-                </p>
+                <p className="section-copy">ablymotors RSS를 실시간 파싱해 최신 포스팅을 카드로 자동 노출합니다.</p>
               </div>
               <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" className="section-anchor">
                 블로그 전체 보기
@@ -242,4 +249,3 @@ export default function App() {
     </>
   );
 }
-
