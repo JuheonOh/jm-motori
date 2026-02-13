@@ -56,22 +56,6 @@ export default function ContactSection({ containerClass, image1, image2, image3,
                 </div>
               </dl>
               <div className="mt-4 grid grid-cols-3 gap-3 max-[760px]:grid-cols-1">
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center rounded-[10px] bg-[#e31837] px-4 py-3 text-[0.95rem] font-extrabold text-white transition hover:brightness-95"
-                  onClick={() => openNavigation("tmap")}
-                  aria-label="T맵 길안내 열기"
-                >
-                  T맵 길안내
-                </button>
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center rounded-[10px] bg-[#fee500] px-4 py-3 text-[0.95rem] font-extrabold text-[#191600] transition hover:brightness-95"
-                  onClick={() => openNavigation("kakao")}
-                  aria-label="카카오내비 길안내 열기"
-                >
-                  카카오내비
-                </button>
                 <a
                   href={NAVER_MAP_SEARCH_URL}
                   target="_blank"
@@ -80,6 +64,22 @@ export default function ContactSection({ containerClass, image1, image2, image3,
                 >
                   네이버지도
                 </a>
+                <button
+                  type="button"
+                  className="inline-flex items-center justify-center rounded-[10px] bg-[#fee500] px-4 py-3 text-[0.95rem] font-extrabold text-[#191600] transition hover:brightness-95"
+                  onClick={() => openNavigation("kakao")}
+                  aria-label="카카오내비 길안내 열기"
+                >
+                  카카오내비
+                </button>
+                <button
+                  type="button"
+                  className="inline-flex items-center justify-center rounded-[10px] bg-[#e31837] px-4 py-3 text-[0.95rem] font-extrabold text-white transition hover:brightness-95"
+                  onClick={() => openNavigation("tmap")}
+                  aria-label="T맵 길안내 열기"
+                >
+                  T맵 길안내
+                </button>
               </div>
             </article>
           </div>

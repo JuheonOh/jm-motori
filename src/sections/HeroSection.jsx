@@ -2,16 +2,20 @@ import { STORE } from "../constants";
 
 export default function HeroSection({ containerClass, backgroundImageUrl }) {
   return (
-    <header className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImageUrl})` }}>
+    <header
+      className="relative min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: `url(${backgroundImageUrl})` }}
+    >
       <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(0,0,0,0.86)_20%,rgba(0,0,0,0.45)_55%,rgba(0,0,0,0.72)_100%)]" />
-      <div className={`${containerClass} relative z-[1] flex min-h-screen max-w-[850px] flex-col justify-center pt-28`}>
+      <div className={`${containerClass} relative z-1 flex min-h-screen max-w-212.5 flex-col justify-center pt-28`}>
         <p className="mb-5 w-fit rounded-full border border-[#ffc107]/40 bg-[#ffc107]/15 px-3 py-2 text-[0.72rem] font-bold tracking-[0.18em] text-[#ffc107]">
           GWANGJU BMW·MINI WORKSHOP
         </p>
         <h1 className="m-0 text-[clamp(2.05rem,6.4vw,4.35rem)] font-black leading-[1.1]">
-          미니쿠퍼·BMW 전문 <br className="hidden md:block" /> <span className="text-[#ffc107]">정직하고 정확한 정비</span>
+          미니쿠퍼·BMW 전문 <br className="hidden md:block" />{" "}
+          <span className="text-[#ffc107]">정직하고 정확한 정비</span>
         </h1>
-        <p className="mt-6 max-w-[720px] leading-[1.7] text-slate-200">
+        <p className="mt-6 max-w-180 leading-[1.7] text-slate-200">
           실제 매장 환경과 네이버 블로그의 최신 정비 사례를 실시간으로 연결해, 방문 전에도 정비 퀄리티를 확인할 수
           있도록 구성한 JM MOTORI 공식 SPA입니다.
         </p>
