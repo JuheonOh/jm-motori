@@ -1,4 +1,4 @@
-export const STORE = {
+﻿export const STORE = {
   name: "JM MOTORI",
   phone: "010-4195-7485",
   address: "광주 광산구 사암로106번길 68 1층 (우산동 1073-1)",
@@ -36,4 +36,3 @@ export const RSS_URL = "https://rss.blog.naver.com/ablymotors.xml";
 export const BLOG_URL = "https://blog.naver.com/ablymotors";
 export const NAVER_MAP_SEARCH_URL =
   "https://map.naver.com/v5/search/%EA%B4%91%EC%A3%BC%20%EA%B4%91%EC%82%B0%EA%B5%AC%20%EC%82%AC%EC%95%94%EB%A1%9C106%EB%B2%88%EA%B8%B8%2068";
-

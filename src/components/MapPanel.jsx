@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+﻿import { useEffect, useRef } from "react";
 import { STORE } from "../constants";
 
 const NAVER_MAP_CLIENT_ID = import.meta.env.VITE_NAVER_MAP_CLIENT_ID;
@@ -83,12 +83,11 @@ export default function MapPanel() {
   }, []);
 
   return (
-    <div className="map-panel">
-      <div className="map-canvas" ref={mapRef} />
-      <p className="map-note">
+    <div className="overflow-hidden rounded-[14px] border border-white/10 bg-[#15181b]">
+      <div className="h-80 w-full bg-slate-800" ref={mapRef} />
+      <p className="m-0 border-t border-white/10 p-4 text-xs leading-relaxed text-slate-400">
         `VITE_NAVER_MAP_CLIENT_ID`를 설정하면 네이버 지도가 활성화되고, 미설정 시 임베드 지도로 폴백됩니다.
       </p>
     </div>
   );
 }
-
