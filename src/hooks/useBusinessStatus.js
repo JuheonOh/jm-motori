@@ -2,6 +2,8 @@
 
 const OPEN_BADGE_CLASS =
   "inline-flex rounded-full border border-emerald-300/40 bg-emerald-500/15 px-2.5 py-1 text-[0.7rem] font-extrabold text-emerald-300";
+const RESERVATION_BADGE_CLASS =
+  "inline-flex rounded-full border border-amber-300/40 bg-amber-500/15 px-2.5 py-1 text-[0.7rem] font-extrabold text-amber-200";
 const CLOSED_BADGE_CLASS =
   "inline-flex rounded-full border border-rose-400/35 bg-rose-500/10 px-2.5 py-1 text-[0.7rem] font-extrabold text-rose-200";
 
@@ -13,13 +15,17 @@ function getCurrentStatus() {
 
   const isWeekday = day >= 1 && day <= 5;
   const isSaturday = day === 6;
-  const weekdayOpen = minutes >= 510 && minutes <= 1110;
-  const saturdayOpen = minutes >= 540 && minutes <= 900;
-  const isOpen = (isWeekday && weekdayOpen) || (isSaturday && saturdayOpen);
+  const weekdayOpen = minutes >= 540 && minutes <= 1140;
 
-  return isOpen
-    ? { text: "현재 영업 중", className: OPEN_BADGE_CLASS }
-    : { text: "영업시간 외", className: CLOSED_BADGE_CLASS };
+  if (isSaturday) {
+    return { text: "토요일 예약제 운영", className: RESERVATION_BADGE_CLASS };
+  }
+
+  if (isWeekday && weekdayOpen) {
+    return { text: "현재 영업 중", className: OPEN_BADGE_CLASS };
+  }
+
+  return { text: "영업시간 외", className: CLOSED_BADGE_CLASS };
 }
 
 export function useBusinessStatus() {

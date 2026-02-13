@@ -4,14 +4,14 @@ export const STORE = {
   roadAddress: "광주 광산구 사암로106번길 68",
   jibunAddress: "광주 광산구 우산동 1073-1",
   address: "광주 광산구 사암로106번길 68 1층 (우산동 1073-1)",
-  openHours: "평일 08:30~18:30 / 토요일 09:00~15:00 / 일요일 휴무",
+  openHours: "월~금 09:00~19:00 / 토요일 예약제 운영 / 일요일 휴무",
   lat: 35.1535420063436,
   lng: 126.81100486782,
 };
 
 export const NAV_LINKS = [
   { href: "#services", label: "정비 서비스" },
-  { href: "#portfolio", label: "정비 포트폴리오" },
+  { href: "#portfolio", label: "정비 사례" },
   { href: "#contact", label: "오시는 길" },
 ];
 
