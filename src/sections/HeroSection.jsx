@@ -12,8 +12,7 @@ export default function HeroSection({ containerClass, backgroundImageUrl }) {
           GWANGJU BMW·MINI WORKSHOP
         </p>
         <h1 className="m-0 text-[clamp(2.05rem,6.4vw,4.35rem)] font-black leading-[1.1]">
-          BMW·미니쿠퍼 전문 <br className="hidden md:block" />{" "}
-          <span className="text-[#ffc107]">정직하고 정확한 정비</span>
+          BMW·미니쿠퍼 전문 <br /> <span className="text-[#ffc107]">정직하고 정확한 정비</span>
         </h1>
         <p className="mt-6 max-w-180 leading-[1.7] text-slate-200">
           실제 매장 환경과 네이버 블로그의 최신 정비 사례를 한눈에 확인할 수 있도록 구성한 JM MOTORI 공식 정비 안내
