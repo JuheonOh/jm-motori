@@ -17,19 +17,19 @@ export default function ContactSection({ containerClass, image1, image2, image3,
                 src={image1}
                 alt="JM MOTORI 외관"
                 loading="lazy"
-                className="h-40 w-full rounded-xl object-cover max-[760px]:h-[180px]"
+                className="h-40 w-full rounded-xl object-cover max-[760px]:h-45"
               />
               <img
                 src={image3}
                 alt="JM MOTORI 매장 전경"
                 loading="lazy"
-                className="h-40 w-full rounded-xl object-cover max-[760px]:h-[180px]"
+                className="h-40 w-full rounded-xl object-cover max-[760px]:h-45"
               />
               <img
                 src={image2}
                 alt="JM MOTORI 정비 작업"
                 loading="lazy"
-                className="h-40 w-full rounded-xl object-cover max-[760px]:h-[180px]"
+                className="h-40 w-full rounded-xl object-cover max-[760px]:h-45"
               />
             </div>
             <article className="rounded-[14px] border border-white/10 bg-[#15181b] p-5">

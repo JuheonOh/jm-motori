@@ -56,7 +56,7 @@ export default function BlogCards() {
             key={post.id}
           >
             <a href={post.link} target="_blank" rel="noopener noreferrer">
-              <div className="aspect-[16/10] overflow-hidden bg-slate-800">
+              <div className="aspect-16/10 overflow-hidden bg-slate-800">
                 <img
                   src={post.thumbnail}
                   alt={post.title}

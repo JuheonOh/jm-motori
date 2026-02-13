@@ -2,7 +2,7 @@ import { NAV_LINKS, STORE } from "../../constants";
 
 export default function TopNav({ containerClass }) {
   return (
-    <nav className="fixed inset-x-0 top-0 z-[100] border-b border-white/10 bg-black/65 backdrop-blur">
+    <nav className="fixed inset-x-0 top-0 z-100 border-b border-white/10 bg-black/65 backdrop-blur">
       <div className={`${containerClass} flex min-h-20 items-center justify-between`}>
         <a href="#home">
           <p className="m-0 text-[1.8rem] font-extrabold uppercase tracking-[0.08em] text-white">

@@ -4,7 +4,7 @@ export default function ServicesSection({ containerClass }) {
   return (
     <section
       id="services"
-      className="border-y border-white/10 py-20 [background-color:rgba(21,24,27,0.62)] [background-image:linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:18px_18px]"
+      className="border-y border-white/10 py-20 bg-[rgba(21,24,27,0.62)] bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[18px_18px]"
     >
       <div className={containerClass}>
         <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.2em] text-[#ffc107]">Core Services</p>
