@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://juheonoh.github.io/jm-motori/sitemap.xml
