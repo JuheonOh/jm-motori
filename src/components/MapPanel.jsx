@@ -189,7 +189,7 @@ export default function MapPanel() {
       </div>
 
       <div className="relative">
-        <div className="h-[360px] w-full bg-slate-800" ref={mapRef} />
+        <div className="h-90 w-full bg-slate-800" ref={mapRef} />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.75)_100%)] p-4">
           <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#ffc107]">Address</p>
           <p className="mt-1 text-sm font-bold text-white">{STORE.roadAddress}</p>

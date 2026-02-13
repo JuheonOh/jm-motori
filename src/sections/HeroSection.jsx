@@ -12,7 +12,7 @@ export default function HeroSection({ containerClass, backgroundImageUrl }) {
           GWANGJU BMW·MINI WORKSHOP
         </p>
         <h1 className="m-0 text-[clamp(2.05rem,6.4vw,4.35rem)] font-black leading-[1.1]">
-          미니쿠퍼·BMW 전문 <br className="hidden md:block" />{" "}
+          BMW·미니쿠퍼 전문 <br className="hidden md:block" />{" "}
           <span className="text-[#ffc107]">정직하고 정확한 정비</span>
         </h1>
         <p className="mt-6 max-w-180 leading-[1.7] text-slate-200">
