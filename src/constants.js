@@ -1,10 +1,12 @@
-﻿export const STORE = {
+export const STORE = {
   name: "JM MOTORI",
   phone: "010-4195-7485",
+  roadAddress: "광주 광산구 사암로106번길 68",
+  jibunAddress: "광주 광산구 우산동 1073-1",
   address: "광주 광산구 사암로106번길 68 1층 (우산동 1073-1)",
   openHours: "평일 08:30~18:30 / 토요일 09:00~15:00 / 일요일 휴무",
-  lat: 35.1568,
-  lng: 126.8115,
+  lat: 35.1535420063436,
+  lng: 126.81100486782,
 };
 
 export const NAV_LINKS = [
@@ -34,5 +36,4 @@ export const SERVICES = [
 
 export const RSS_URL = "https://rss.blog.naver.com/ablymotors.xml";
 export const BLOG_URL = "https://blog.naver.com/ablymotors";
-export const NAVER_MAP_SEARCH_URL =
-  "https://map.naver.com/v5/search/%EA%B4%91%EC%A3%BC%20%EA%B4%91%EC%82%B0%EA%B5%AC%20%EC%82%AC%EC%95%94%EB%A1%9C106%EB%B2%88%EA%B8%B8%2068";
+export const NAVER_MAP_SEARCH_URL = `https://map.naver.com/v5/search/${encodeURIComponent(STORE.jibunAddress)}`;

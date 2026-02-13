@@ -155,7 +155,8 @@ async function fetchXmlWithFallback() {
 }
 
 async function run() {
-  const fallbackThumb = "/jm-motori/assets/images/3.jpg";
+  // Keep this project-relative so runtime can resolve BASE_URL correctly.
+  const fallbackThumb = "assets/images/3.jpg";
 
   try {
     const xmlText = await fetchXmlWithFallback();
@@ -192,4 +193,3 @@ run().catch((error) => {
   console.error(error.message);
   process.exit(1);
 });
-
