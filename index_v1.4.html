@@ -1,0 +1,152 @@
+<!doctype html>
+<html class="dark" lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>JM모토리 | BMW & MINI 전문 정비</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#FFC107", // 간판 노란색
+                        charcoal: "#212529", // 간판 배경색
+                        background: "#F8F9FA",
+                    },
+                    fontFamily: { sans: ["Noto Sans KR", "sans-serif"] },
+                },
+            },
+        };
+    </script>
+    <style type="text/tailwindcss">
+        @layer base { html { scroll-behavior: smooth; } }
+        .glass-nav { background-color: rgba(33, 37, 41, 0.85); backdrop-filter: blur(12px); }
+        .hero-gradient { background: linear-gradient(to right, rgba(33, 37, 41, 0.9) 0%, rgba(33, 37, 41, 0.3) 100%); }
+        .blog-card:hover img { transform: scale(1.05); }
+    </style>
+</head>
+<body class="bg-background dark:bg-charcoal font-sans antialiased text-gray-900 dark:text-gray-100">
+
+    <nav class="fixed top-0 left-0 w-full z-50 glass-nav border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <a class="text-2xl font-black tracking-tighter" href="#">
+                <span class="text-primary">JM</span><span class="text-white">MOTORI</span>
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
+                <a class="hover:text-primary transition" href="#services">정비 서비스</a>
+                <a class="hover:text-primary transition" href="#portfolio">정비 사례</a>
+                <a class="hover:text-primary transition" href="#contact">오시는 길</a>
+                <a class="bg-primary text-black px-4 py-2 rounded font-bold" href="tel:010-4195-7485">상담하기</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative w-full h-screen flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img alt="JM모토리 내부" class="w-full h-full object-cover" src="2.jpg" />
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4">
+            <h1 class="text-5xl md:text-7xl font-black text-white mb-8 leading-tight">
+                미니쿠퍼 전문,<br />
+                <span class="text-primary">정직한 정비</span><br />
+                JM모토리
+            </h1>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="tel:010-4195-7485" class="bg-primary text-black font-extrabold text-xl px-10 py-5 rounded shadow-lg text-center transition hover:scale-105">전화 상담하기</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="portfolio" class="py-24 bg-gray-50 dark:bg-gray-900 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl font-black text-white">최신 정비 사례</h2>
+                    <p class="text-gray-400 mt-2 text-sm">네이버 블로그에서 실시간으로 가져온 정비 일지입니다.</p>
+                </div>
+                <a href="https://blog.naver.com/ablymotors" target="_blank" class="text-primary font-bold hover:underline">블로그 전체보기</a>
+            </div>
+            
+            <div id="blog-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="col-span-full py-20 text-center">
+                    <p class="text-gray-500 animate-pulse">정비 사례를 불러오는 중입니다...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-white dark:bg-charcoal px-4">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 text-center lg:text-left">
+            <div>
+                <img src="1.jpg" class="rounded-xl shadow-2xl mb-8 mx-auto lg:mx-0" alt="JM모토리 외관" />
+                <p class="text-primary text-4xl font-bold">010-4195-7485</p>
+                <p class="text-gray-400 mt-2">광주광역시 북구 | 미니쿠퍼 정비 전문</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        async function fetchRSS() {
+            const RSS_URL = 'https://rss.blog.naver.com/ablymotors.xml';
+            // CORS 해결을 위한 프록시 사용 (allorigins)
+            const PROXY_URL = `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`;
+
+            try {
+                const response = await fetch(PROXY_URL);
+                const data = await response.json();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(data.contents, "text/xml");
+                const items = xmlDoc.querySelectorAll("item");
+                const container = document.getElementById('blog-container');
+                
+                container.innerHTML = ''; // 로딩 메시지 제거
+
+                // 최신 6개 포스트만 표시
+                items.forEach((item, index) => {
+                    if (index >= 6) return;
+
+                    const title = item.querySelector("title").textContent;
+                    const link = item.querySelector("link").textContent;
+                    const pubDate = new Date(item.querySelector("pubDate").textContent).toLocaleDateString();
+                    
+                    // 정규표현식으로 텍스트 요약 (설명에서 HTML 태그 제거)
+                    const description = item.querySelector("description").textContent
+                        .replace(/<[^>]*>?/gm, '').substring(0, 80) + '...';
+
+                    // 카드 UI 생성
+                    const card = `
+                        <div class="blog-card bg-gray-800 rounded-xl overflow-hidden border border-white/5 transition duration-300 hover:border-primary/50 shadow-lg">
+                            <a href="${link}" target="_blank">
+                                <div class="p-6">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <span class="text-xs font-bold text-primary uppercase tracking-widest">Repair Diary</span>
+                                        <span class="text-xs text-gray-500">${pubDate}</span>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-white mb-3 line-clamp-2 hover:text-primary transition">${title}</h3>
+                                    <p class="text-gray-400 text-sm leading-relaxed mb-6">${description}</p>
+                                    <div class="flex items-center text-primary text-sm font-bold">
+                                        자세히 보기 <span class="material-icons text-sm ml-1">open_in_new</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    `;
+                    container.innerHTML += card;
+                });
+            } catch (error) {
+                console.error('RSS 로드 실패:', error);
+                document.getElementById('blog-container').innerHTML = 
+                    `<p class="col-span-full text-red-400">사례를 불러오지 못했습니다. 블로그 링크를 직접 확인해주세요.</p>`;
+            }
+        }
+
+        // 페이지 로드 시 실행
+        document.addEventListener('DOMContentLoaded', fetchRSS);
+    </script>
+</body>
+</html>

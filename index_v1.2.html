@@ -1,0 +1,1589 @@
+<!-- JM MOTORI Hero Section v1.1 -->
+<!doctype html>
+<html class="dark" lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>JM모토리 히어로 섹션 (v1.1 한글)</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#FFC107",
+              "primary-dark": "#d9a409",
+              "background-light": "#f8f8f5",
+              "background-dark": "#212529",
+              charcoal: "#212529",
+            },
+            fontFamily: {
+              display: ["Noto Sans KR", "sans-serif"],
+              sans: ["Noto Sans KR", "sans-serif"],
+            },
+            backgroundImage: {
+              "metallic-yellow": "linear-gradient(135deg, #FFD54F 0%, #FFC107 50%, #FFA000 100%)",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        html {
+          scroll-behavior: smooth;
+        }
+      }
+      .glass-nav {
+        background-color: rgba(33, 37, 41, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .text-shadow-sm {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .metallic-btn {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+      .metallic-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        transition: left 0.5s ease;
+      }
+      .metallic-btn:hover::before {
+        left: 100%;
+      }
+      .hero-gradient {
+        background: linear-gradient(
+          to right,
+          rgba(33, 37, 41, 0.9) 0%,
+          rgba(33, 37, 41, 0.4) 50%,
+          rgba(33, 37, 41, 0.1) 100%
+        );
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark font-sans text-gray-900 dark:text-gray-100 antialiased overflow-x-hidden"
+  >
+    <nav class="fixed top-0 left-0 w-full z-50 glass-nav border-b border-white/10 transition-all duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+          <div class="flex-shrink-0 flex items-center">
+            <a class="text-2xl font-black tracking-tighter group" href="#">
+              <span class="text-primary transition-colors duration-300">JM</span>
+              <span class="text-white transition-colors duration-300">MOTORI</span>
+            </a>
+          </div>
+          <div class="hidden md:block">
+            <div class="ml-10 flex items-baseline space-x-8">
+              <a
+                class="text-gray-300 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                href="#"
+                >정비 서비스</a
+              >
+              <a
+                class="text-gray-300 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                href="#"
+                >회사 소개</a
+              >
+              <a
+                class="text-gray-300 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                href="#"
+                >오시는 길</a
+              >
+              <a
+                class="bg-primary/20 text-primary border border-primary/50 hover:bg-primary hover:text-black px-4 py-2 rounded text-sm font-bold transition-all duration-300"
+                href="#"
+                >예약하기</a
+              >
+            </div>
+          </div>
+          <div class="-mr-2 flex md:hidden">
+            <button
+              aria-controls="mobile-menu"
+              aria-expanded="false"
+              class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none"
+              type="button"
+            >
+              <span class="sr-only">메뉴 열기</span>
+              <span class="material-icons">menu</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <header class="relative w-full h-screen flex flex-col justify-center items-center overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <img
+          alt="리프트 위의 미니쿠퍼와 정비소 전경"
+          class="w-full h-full object-cover object-center transform scale-100"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwbZpa0Wn19dngSbEXKs0NeuEQhdwqj0KDHuO_5vNkTB2WbZFUiaRUyNmW7S65mrZukv4KEKcQckYpYajFCNCRaZgsV6lus40Gf3wFQf5ofN6NNNkRYNDEt2LjxLF189cJo_sPB92kmLjoDPKW-8ijxnx6KV-MW29_oSRF_QWxbcpASB4ujFBktqN_H3funsesFUiHfhq1ImDuJPGjJ89XqykpaLpb5bwJWRlObXHUEUIClPRryJtxLh6DuW5sCBpUbm243fx_wVYI"
+        />
+        <div class="absolute inset-0 bg-background-dark/40 hero-gradient"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent"></div>
+      </div>
+      <div
+        class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-start justify-center h-full pt-20"
+      >
+        <div class="max-w-3xl">
+          <div
+            class="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/20 border border-primary/40 backdrop-blur-sm mb-8"
+          >
+            <span class="w-2 h-2 rounded-full bg-primary mr-3 animate-pulse"></span>
+            <span class="text-primary text-xs font-bold uppercase tracking-widest">Premium Mini Specialist</span>
+          </div>
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-8 leading-[1.2] text-shadow-sm">
+            미니쿠퍼 전문,<br />
+            <span class="text-primary">정직한 정비</span><br />
+            JM모토리
+          </h1>
+          <p
+            class="text-lg md:text-xl text-gray-100 mb-12 max-w-2xl font-normal border-l-4 border-primary pl-6 leading-relaxed"
+          >
+            내 차를 아끼는 마음으로, 최신 장비와 정밀 진단을 통해<br class="hidden md:block" />
+            최상의 컨디션을 약속드립니다.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-5">
+            <button
+              class="metallic-btn bg-metallic-yellow text-black font-extrabold text-xl px-10 py-5 rounded shadow-[0_10px_30px_rgba(255,193,7,0.3)] hover:shadow-[0_15px_40px_rgba(255,193,7,0.5)] transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group"
+            >
+              <span class="material-icons mr-3 group-hover:rotate-12 transition-transform">phone_in_talk</span>
+              실시간 전화 상담
+            </button>
+            <button
+              class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 font-bold text-xl px-10 py-5 rounded transition-all duration-300 flex items-center justify-center"
+            >
+              정비 항목 보기
+              <span class="material-icons ml-3 text-primary">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center opacity-70">
+        <span class="text-xs uppercase tracking-[0.3em] text-gray-300 mb-3 font-bold">Scroll</span>
+        <div class="w-6 h-10 border-2 border-primary/50 rounded-full flex justify-center p-1">
+          <div class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce"></div>
+        </div>
+      </div>
+    </header>
+    <section class="relative z-20 bg-charcoal border-t border-white/5 py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-white/10"
+        >
+          <div
+            class="px-6 py-6 md:py-2 flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-5 group cursor-default"
+          >
+            <div
+              class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black transition-all duration-300"
+            >
+              <span class="material-icons text-3xl">verified</span>
+            </div>
+            <div>
+              <h3 class="text-white font-bold text-xl mb-1">숙련된 전문가</h3>
+              <p class="text-gray-400 text-sm leading-relaxed">수입차 전문 테크니션의<br />정밀한 차량 관리</p>
+            </div>
+          </div>
+          <div
+            class="px-6 py-6 md:py-2 flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-5 group cursor-default"
+          >
+            <div
+              class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black transition-all duration-300"
+            >
+              <span class="material-icons text-3xl">precision_manufacturing</span>
+            </div>
+            <div>
+              <h3 class="text-white font-bold text-xl mb-1">최첨단 진단기</h3>
+              <p class="text-gray-400 text-sm leading-relaxed">전용 진단 장비를 통한<br />빠르고 정확한 원인 파악</p>
+            </div>
+          </div>
+          <div
+            class="px-6 py-6 md:py-2 flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-5 group cursor-default"
+          >
+            <div
+              class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black transition-all duration-300"
+            >
+              <span class="material-icons text-3xl">handshake</span>
+            </div>
+            <div>
+              <h3 class="text-white font-bold text-xl mb-1">투명한 견적</h3>
+              <p class="text-gray-400 text-sm leading-relaxed">거품 없는 정직한 가격과<br />신뢰할 수 있는 부품 사용</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
+
+<!-- JM MOTORI About Section v1.1 -->
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>JM MOTORI - 정비 철학</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#FFC107",
+              "dark-charcoal": "#212529",
+              "background-light": "#F8F9FA",
+            },
+            fontFamily: {
+              sans: ["Pretendard", "Noto Sans KR", "sans-serif"],
+            },
+            borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        body {
+          @apply font-sans;
+        }
+      }
+      .clip-slant {
+        clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
+      }
+    </style>
+  </head>
+  <body class="bg-background-light dark:bg-dark-charcoal antialiased text-dark-charcoal dark:text-neutral-200">
+    <section class="relative w-full py-16 lg:py-24 overflow-hidden">
+      <div class="container mx-auto px-4 lg:px-8">
+        <div class="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+          <div class="w-full lg:w-1/2 relative group">
+            <div
+              class="absolute -top-4 -left-4 w-24 h-24 bg-primary rounded-xl -z-10 transition-transform duration-500 group-hover:translate-x-2 group-hover:-translate-y-2"
+            ></div>
+            <div
+              class="absolute -bottom-4 -right-4 w-full h-full border-2 border-neutral-200 dark:border-neutral-700 rounded-xl -z-10"
+            ></div>
+            <div
+              class="relative rounded-xl overflow-hidden shadow-2xl ring-1 ring-black/5 dark:ring-white/10 aspect-[4/3]"
+            >
+              <img
+                alt="Clean modern garage interior with bright LED lighting"
+                class="object-cover w-full h-full transform transition duration-700 hover:scale-105"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz92mY9Xo80oHkwQbPwwUkS8CjluLpUarf-n8-YmmLZdytNNb_O1TZ6hbIygYu6UWLykixkqEqbVfmm8X8Pp-wbofk_Ht--NYPvQU7ufaNf0mfTgryhkiZ93zqxWq02cCIhKCyyjju7lY1cc9e5V2K5h6a_HoVD-agwKcMg9ivz3-RzoY4q2akH2_-S88H33irgJv1jRvC89HPao1BgD0k3dJrIitnORfnMJr-BaAtMK2KMHAuAtN7eEaxxJyuwexMyH2bQgdol_dV"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
+              <div
+                class="absolute bottom-6 left-6 bg-white/95 dark:bg-dark-charcoal/95 backdrop-blur-sm px-4 py-3 rounded-lg shadow-lg border-l-4 border-primary"
+              >
+                <p class="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 mb-0.5">
+                  Est. 2018
+                </p>
+                <p class="text-sm font-bold text-dark-charcoal dark:text-white">Premium Service Center</p>
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 flex flex-col justify-center space-y-8">
+            <div class="space-y-4">
+              <div class="flex items-center space-x-3">
+                <span class="w-12 h-1 bg-primary rounded-full"></span>
+                <span class="text-sm font-bold uppercase tracking-widest text-neutral-600 dark:text-primary"
+                  >정비 철학</span
+                >
+              </div>
+              <h2 class="text-3xl lg:text-5xl font-extrabold leading-tight text-dark-charcoal dark:text-white">
+                밝은 LED 조명 아래 <br />
+                <span class="relative inline-block">
+                  <span class="relative z-10 text-dark-charcoal dark:text-primary drop-shadow-sm">실현되는 정밀함</span>
+                  <span
+                    class="absolute bottom-1 left-0 w-full h-3 bg-primary/30 dark:bg-primary/20 -rotate-1 rounded-sm -z-0"
+                  ></span>
+                </span>
+              </h2>
+            </div>
+            <p class="text-lg leading-relaxed text-neutral-600 dark:text-neutral-400 max-w-xl">
+              JM모토리는 깨끗한 작업 환경이 정밀한 정비의 시작이라고 믿습니다. 과거의 기름때를 벗겨내고 현대적
+              엔지니어링의 명쾌함을 드러냅니다.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2">
+              <div
+                class="group p-4 bg-white dark:bg-neutral-800/50 rounded-xl shadow-sm border border-neutral-200/60 dark:border-neutral-700 hover:border-primary/50 transition-colors duration-300"
+              >
+                <div
+                  class="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-3 group-hover:bg-primary transition-colors duration-300"
+                >
+                  <span class="material-icons text-dark-charcoal text-xl">handyman</span>
+                </div>
+                <h4 class="font-bold text-dark-charcoal dark:text-white mb-1">전문성</h4>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 font-medium">숙련된 정비사</p>
+              </div>
+              <div
+                class="group p-4 bg-white dark:bg-neutral-800/50 rounded-xl shadow-sm border border-neutral-200/60 dark:border-neutral-700 hover:border-primary/50 transition-colors duration-300"
+              >
+                <div
+                  class="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-3 group-hover:bg-primary transition-colors duration-300"
+                >
+                  <span class="material-icons text-dark-charcoal text-xl">verified_user</span>
+                </div>
+                <h4 class="font-bold text-dark-charcoal dark:text-white mb-1">신뢰</h4>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 font-medium">투명한 서비스</p>
+              </div>
+              <div
+                class="group p-4 bg-white dark:bg-neutral-800/50 rounded-xl shadow-sm border border-neutral-200/60 dark:border-neutral-700 hover:border-primary/50 transition-colors duration-300"
+              >
+                <div
+                  class="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-3 group-hover:bg-primary transition-colors duration-300"
+                >
+                  <span class="material-icons text-dark-charcoal text-xl">gps_fixed</span>
+                </div>
+                <h4 class="font-bold text-dark-charcoal dark:text-white mb-1">정밀</h4>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 font-medium">엄격한 기준</p>
+              </div>
+            </div>
+            <div class="pt-4">
+              <button
+                class="inline-flex items-center justify-center px-10 py-4 text-base font-bold text-dark-charcoal transition-all duration-200 bg-primary border-2 border-transparent rounded-lg hover:bg-dark-charcoal hover:text-primary hover:shadow-lg hover:shadow-primary/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-dark-charcoal"
+              >
+                정비 예약하기
+                <span class="material-icons ml-2 text-sm">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl -z-20"></div>
+      <div
+        class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-neutral-200/50 dark:bg-white/5 rounded-full blur-3xl -z-20"
+      ></div>
+    </section>
+  </body>
+</html>
+
+<!-- JM MOTORI Services v1.1 -->
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>JM 모토리 - 전문 정비 서비스</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#FFC107",
+              "primary-dark": "#e6ad00",
+              "background-light": "#f8f8f5",
+              "background-dark": "#212529",
+              "surface-dark": "#2d3238",
+            },
+            fontFamily: {
+              display: ["Noto Sans KR", "Space Grotesk", "sans-serif"],
+              sans: ["Noto Sans KR", "sans-serif"],
+            },
+            borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+            boxShadow: {
+              glow: "0 4px 20px -2px rgba(255, 193, 7, 0.15)",
+              "glow-hover": "0 10px 25px -5px rgba(255, 193, 7, 0.4)",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      html {
+        scroll-behavior: smooth;
+      }
+      .industrial-grid {
+        background-image:
+          linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+        background-size: 40px 40px;
+        background-position: center top;
+      }
+      .dark .industrial-grid {
+        background-image:
+          linear-gradient(#33383e 1px, transparent 1px), linear-gradient(90deg, #33383e 1px, transparent 1px);
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 48;
+      }
+    </style>
+  </head>
+  <body
+    class="font-sans bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 min-h-screen flex flex-col"
+  >
+    <nav
+      class="sticky top-0 z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+          <div class="flex-shrink-0 flex items-center gap-2">
+            <div
+              class="w-10 h-10 bg-primary rounded flex items-center justify-center text-background-dark font-bold text-xl tracking-tighter shadow-glow"
+            >
+              JM
+            </div>
+            <span class="font-bold text-xl tracking-tight text-gray-900 dark:text-white uppercase">
+              JM <span class="text-primary">MOTORI</span>
+            </span>
+          </div>
+          <div class="hidden md:flex space-x-8 items-center">
+            <a
+              class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors"
+              href="#"
+              >홈</a
+            >
+            <a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">서비스</a>
+            <a
+              class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors"
+              href="#"
+              >소개</a
+            >
+            <a
+              class="bg-background-dark dark:bg-primary text-white dark:text-background-dark px-5 py-2.5 rounded hover:bg-gray-800 dark:hover:bg-primary-dark transition-colors font-semibold shadow-lg"
+              href="#"
+            >
+              정비 예약하기
+            </a>
+          </div>
+          <div class="flex items-center md:hidden">
+            <button class="text-gray-600 dark:text-gray-300 hover:text-primary" type="button">
+              <span class="material-icons-outlined text-3xl">menu</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <header class="relative py-24 px-4 sm:px-6 lg:px-8 industrial-grid overflow-hidden">
+      <div
+        class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary/5 to-transparent pointer-events-none"
+      ></div>
+      <div class="max-w-7xl mx-auto relative z-10 text-center">
+        <div
+          class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary-dark dark:text-primary text-sm font-bold tracking-wide uppercase mb-6 border border-primary/20"
+        >
+          <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          전문적인 정비 솔루션
+        </div>
+        <h1 class="text-5xl md:text-6xl font-black text-gray-900 dark:text-white tracking-tight mb-6">
+          자동차
+          <span class="relative inline-block text-primary">
+            전문 정비 서비스
+            <svg
+              class="absolute -bottom-2 left-0 w-full h-3 text-primary/40"
+              preserveAspectRatio="none"
+              viewBox="0 0 100 10"
+            >
+              <path d="M0 5 Q 50 10 100 5" fill="none" stroke="currentColor" stroke-width="4"></path>
+            </svg>
+          </span>
+        </h1>
+        <p class="max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+          최첨단 진단 장비와 숙련된 전문가의 정밀한 기술력을 결합하여<br class="hidden md:block" />
+          소중한 차량에 최상의 컨디션을 약속드립니다.
+        </p>
+      </div>
+    </header>
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-background-light dark:bg-background-dark relative">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div
+            class="group bg-white dark:bg-surface-dark rounded-lg p-8 shadow-sm hover:shadow-glow-hover border-2 border-transparent hover:border-primary transition-all duration-300 transform hover:-translate-y-1 flex flex-col h-full"
+          >
+            <div
+              class="w-14 h-14 bg-background-light dark:bg-background-dark rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors"
+            >
+              <span class="material-icons-outlined text-4xl text-primary">oil_barrel</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">엔진오일</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6 flex-grow leading-relaxed">
+              필터 교체 및 최상급 합성유를 사용한 완전한 오일 교체 서비스로 엔진의 수명과 성능을 극대화합니다.
+            </p>
+            <a
+              class="inline-flex items-center text-gray-900 dark:text-white font-bold group-hover:text-primary-dark transition-colors"
+              href="#"
+            >
+              상세보기
+              <span class="material-icons-outlined ml-1 text-lg group-hover:translate-x-1 transition-transform"
+                >arrow_forward</span
+              >
+            </a>
+          </div>
+          <div
+            class="group bg-white dark:bg-surface-dark rounded-lg p-8 shadow-sm hover:shadow-glow-hover border-2 border-transparent hover:border-primary transition-all duration-300 transform hover:-translate-y-1 flex flex-col h-full"
+          >
+            <div
+              class="w-14 h-14 bg-background-light dark:bg-background-dark rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors"
+            >
+              <span class="material-icons-outlined text-4xl text-primary">car_crash</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">하체 정비</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6 flex-grow leading-relaxed">
+              서스펜션 교체 및 하체 소음 정밀 진단을 통해 안정적인 승차감과 정숙함을 되찾아 드립니다.
+            </p>
+            <a
+              class="inline-flex items-center text-gray-900 dark:text-white font-bold group-hover:text-primary-dark transition-colors"
+              href="#"
+            >
+              상세보기
+              <span class="material-icons-outlined ml-1 text-lg group-hover:translate-x-1 transition-transform"
+                >arrow_forward</span
+              >
+            </a>
+          </div>
+          <div
+            class="group bg-white dark:bg-surface-dark rounded-lg p-8 shadow-sm hover:shadow-glow-hover border-2 border-transparent hover:border-primary transition-all duration-300 transform hover:-translate-y-1 flex flex-col h-full"
+          >
+            <div
+              class="w-14 h-14 bg-background-light dark:bg-background-dark rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors"
+            >
+              <span class="material-icons-outlined text-4xl text-primary">build</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">일반 정비</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6 flex-grow leading-relaxed">
+              소모품 교체부터 차량 전반에 대한 정밀 검사까지 원스톱으로 관리하는 예방 정비 서비스입니다.
+            </p>
+            <a
+              class="inline-flex items-center text-gray-900 dark:text-white font-bold group-hover:text-primary-dark transition-colors"
+              href="#"
+            >
+              상세보기
+              <span class="material-icons-outlined ml-1 text-lg group-hover:translate-x-1 transition-transform"
+                >arrow_forward</span
+              >
+            </a>
+          </div>
+          <div
+            class="group bg-white dark:bg-surface-dark rounded-lg p-8 shadow-sm hover:shadow-glow-hover border-2 border-transparent hover:border-primary transition-all duration-300 transform hover:-translate-y-1 flex flex-col h-full"
+          >
+            <div
+              class="w-14 h-14 bg-background-light dark:bg-background-dark rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors"
+            >
+              <span class="material-icons-outlined text-4xl text-primary">trip_origin</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">브레이크 시스템</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6 flex-grow leading-relaxed">
+              안전과 직결된 브레이크 패드 및 로터의 마모 상태를 점검하고 정교한 교체 작업을 수행합니다.
+            </p>
+            <a
+              class="inline-flex items-center text-gray-900 dark:text-white font-bold group-hover:text-primary-dark transition-colors"
+              href="#"
+            >
+              상세보기
+              <span class="material-icons-outlined ml-1 text-lg group-hover:translate-x-1 transition-transform"
+                >arrow_forward</span
+              >
+            </a>
+          </div>
+          <div
+            class="group bg-white dark:bg-surface-dark rounded-lg p-8 shadow-sm hover:shadow-glow-hover border-2 border-transparent hover:border-primary transition-all duration-300 transform hover:-translate-y-1 flex flex-col h-full"
+          >
+            <div
+              class="w-14 h-14 bg-background-light dark:bg-background-dark rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors"
+            >
+              <span class="material-icons-outlined text-4xl text-primary">tire_repair</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">타이어 &amp; 휠</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6 flex-grow leading-relaxed">
+              전문 장비를 이용한 휠 밸런싱과 정기적인 위치 교환으로 타이어의 편마모를 방지하고 연비를 개선합니다.
+            </p>
+            <a
+              class="inline-flex items-center text-gray-900 dark:text-white font-bold group-hover:text-primary-dark transition-colors"
+              href="#"
+            >
+              상세보기
+              <span class="material-icons-outlined ml-1 text-lg group-hover:translate-x-1 transition-transform"
+                >arrow_forward</span
+              >
+            </a>
+          </div>
+          <div
+            class="group bg-white dark:bg-surface-dark rounded-lg p-8 shadow-sm hover:shadow-glow-hover border-2 border-transparent hover:border-primary transition-all duration-300 transform hover:-translate-y-1 flex flex-col h-full"
+          >
+            <div
+              class="w-14 h-14 bg-background-light dark:bg-background-dark rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors"
+            >
+              <span class="material-icons-outlined text-4xl text-primary">monitor_heart</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">정밀 진단</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6 flex-grow leading-relaxed">
+              최신 스캐너 분석을 통한 엔진 및 전기 계통의 오류 코드를 진단하고 근본적인 원인을 해결합니다.
+            </p>
+            <a
+              class="inline-flex items-center text-gray-900 dark:text-white font-bold group-hover:text-primary-dark transition-colors"
+              href="#"
+            >
+              상세보기
+              <span class="material-icons-outlined ml-1 text-lg group-hover:translate-x-1 transition-transform"
+                >arrow_forward</span
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div
+      class="h-2 w-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgNDBMMjAgMjBMMCAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmMzhmMDUiIHN0cm9rZS13aWR0aD0iMiIvPjwvc3ZnPg==')] opacity-10"
+    ></div>
+    <section class="relative bg-primary text-background-dark py-20 px-4">
+      <div
+        class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-black to-transparent pointer-events-none"
+      ></div>
+      <div
+        class="max-w-4xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left"
+      >
+        <div>
+          <h2 class="text-3xl md:text-4xl font-black mb-3 tracking-tight">전문가의 도움이 필요하신가요?</h2>
+          <p class="text-lg md:text-xl font-bold opacity-90">지금 바로 고객님의 차량을 위한 정밀 진단을 예약하세요.</p>
+        </div>
+        <a
+          class="bg-background-dark text-white px-8 py-4 rounded-lg font-black text-lg hover:bg-black hover:scale-105 transition-all shadow-xl flex items-center gap-2"
+          href="#"
+        >
+          <span class="material-icons-outlined">calendar_today</span>
+          정비 예약하기
+        </a>
+      </div>
+    </section>
+    <section
+      class="bg-white dark:bg-surface-dark py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-200 dark:border-gray-800"
+    >
+      <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-8">
+          <div>
+            <h2 class="text-3xl font-black text-gray-900 dark:text-white mb-4">매장 위치 안내</h2>
+            <p class="text-gray-600 dark:text-gray-400">
+              JM 모토리는 편리한 접근성과 모든 차종이 진입 가능한 넓은 주차 공간을 갖추고 있습니다.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4">
+              <div
+                class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 text-primary-dark dark:text-primary"
+              >
+                <span class="material-icons-outlined">location_on</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 dark:text-white">주소</h4>
+                <p class="text-gray-600 dark:text-gray-400">경기도 파주시 산업단지로 128 (정비동 1층)</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div
+                class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 text-primary-dark dark:text-primary"
+              >
+                <span class="material-icons-outlined">schedule</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 dark:text-white">영업 시간</h4>
+                <p class="text-gray-600 dark:text-gray-400">월 - 금: 08:30 - 18:30<br />토: 09:00 - 15:00</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="h-80 w-full rounded-xl overflow-hidden shadow-lg relative bg-gray-200 dark:bg-gray-800 border-4 border-white dark:border-gray-700"
+        >
+          <img
+            alt="지도 위치 안내"
+            class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCq0KtKgwhwqrJ2FmMWPTzRm6ZvROHItwkVdZ2wO1VOZMfyalQgAeypHIQd5WpsAsp32W4W1xmoRB8mJz7EXuYYhidV_8TAMM3h0l-R7ij6plFa8E-ujJoSRczsaHkf9lKh6M65GVhZDK8IzzBZeE572t2UT947p1nONOr__3pi8TAVv0qhhqWmjzpRYsjcGOZd12ztjSWn6sAomnvhOD2FaFo2aXguam0Vv2W69ADVD466Byl11iaSF0G_Oz9xlLYH-30Z7lwukVRX"
+          />
+          <div
+            class="absolute bottom-4 left-4 bg-white dark:bg-background-dark p-3 rounded shadow-md flex items-center gap-2 border-l-4 border-primary"
+          >
+            <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+            <span class="text-xs font-black text-gray-900 dark:text-white">현재 영업 중</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="bg-background-dark text-white pt-16 pb-8 border-t border-gray-800 mt-auto">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div class="col-span-1 md:col-span-1">
+            <div class="flex items-center gap-2 mb-4">
+              <div
+                class="w-8 h-8 bg-primary rounded flex items-center justify-center text-background-dark font-bold text-lg"
+              >
+                JM
+              </div>
+              <span class="font-bold text-lg uppercase">JM <span class="text-primary">MOTORI</span></span>
+            </div>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              차량의 모든 문제를 해결하는 신뢰할 수 있는 파트너. 모든 정비 서비스에 정밀함과 전문성을 담습니다.
+            </p>
+          </div>
+          <div>
+            <h4 class="text-primary font-bold mb-4 uppercase text-sm tracking-wider">주요 서비스</h4>
+            <ul class="space-y-2 text-sm text-gray-400">
+              <li><a class="hover:text-white transition-colors" href="#">엔진 정밀 진단</a></li>
+              <li><a class="hover:text-white transition-colors" href="#">휠 얼라인먼트</a></li>
+              <li><a class="hover:text-white transition-colors" href="#">오일 서비스</a></li>
+              <li><a class="hover:text-white transition-colors" href="#">브레이크 수리</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-primary font-bold mb-4 uppercase text-sm tracking-wider">회사 정보</h4>
+            <ul class="space-y-2 text-sm text-gray-400">
+              <li><a class="hover:text-white transition-colors" href="#">회사 소개</a></li>
+              <li><a class="hover:text-white transition-colors" href="#">채용 안내</a></li>
+              <li><a class="hover:text-white transition-colors" href="#">개인정보처리방침</a></li>
+              <li><a class="hover:text-white transition-colors" href="#">이용약관</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-primary font-bold mb-4 uppercase text-sm tracking-wider">고객 센터</h4>
+            <ul class="space-y-2 text-sm text-gray-400">
+              <li class="flex items-center gap-2">
+                <span class="material-icons-outlined text-sm">phone</span> 010-1234-5678
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="material-icons-outlined text-sm">email</span> info@jmmotori.com
+              </li>
+            </ul>
+            <div class="flex gap-4 mt-6">
+              <a class="text-gray-400 hover:text-primary transition-colors" href="#"
+                ><i class="material-icons-outlined">facebook</i></a
+              >
+              <a class="text-gray-400 hover:text-primary transition-colors" href="#"
+                ><i class="material-icons-outlined">camera_alt</i></a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500"
+        >
+          <p>© 2024 JM MOTORI. All rights reserved.</p>
+          <p class="mt-2 md:mt-0 font-display">DESIGNED FOR PERFORMANCE.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<!-- JM MOTORI Case Study Gallery v1.1 -->
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>JM모토리 정비 사례 (v1.1 한글)</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;family=Noto+Sans+KR:wght@300;400;500;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#FFC107",
+              "background-light": "#f8f9fa",
+              "background-dark": "#1a1d20",
+              "brand-charcoal": "#212529",
+              "brand-yellow": "#FFC107",
+            },
+            fontFamily: {
+              display: ["Noto Sans KR", "Manrope", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      html {
+        scroll-behavior: smooth;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #212529;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #495057;
+      }
+      .card-hover-overlay {
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+      .group:hover .card-hover-overlay {
+        opacity: 1;
+      }
+      .image-zoom {
+        transition: transform 0.5s ease-out;
+      }
+      .group:hover .image-zoom {
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark text-brand-charcoal font-display antialiased min-h-screen flex flex-col"
+  >
+    <header
+      class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 dark:bg-brand-charcoal/90 dark:border-gray-800 transition-all duration-300"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <div class="flex-shrink-0 flex items-center gap-3">
+            <div
+              class="w-10 h-10 bg-brand-charcoal flex items-center justify-center rounded-lg border border-brand-yellow/30"
+            >
+              <span class="text-brand-yellow font-bold text-xl">JM</span>
+            </div>
+            <span class="font-bold text-xl tracking-tight text-gray-900 dark:text-white uppercase">JM MOTORI</span>
+          </div>
+          <nav class="hidden md:flex space-x-8">
+            <a
+              class="text-gray-600 hover:text-brand-yellow px-3 py-2 text-sm font-medium transition-colors dark:text-gray-300 dark:hover:text-white"
+              href="#"
+              >소개</a
+            >
+            <a
+              class="text-brand-charcoal border-b-2 border-brand-yellow px-3 py-2 text-sm font-bold dark:text-white"
+              href="#"
+              >정비 사례</a
+            >
+            <a
+              class="text-gray-600 hover:text-brand-yellow px-3 py-2 text-sm font-medium transition-colors dark:text-gray-300 dark:hover:text-white"
+              href="#"
+              >서비스</a
+            >
+            <a
+              class="text-gray-600 hover:text-brand-yellow px-3 py-2 text-sm font-medium transition-colors dark:text-gray-300 dark:hover:text-white"
+              href="#"
+              >문의하기</a
+            >
+          </nav>
+          <div class="hidden md:flex">
+            <button
+              class="bg-brand-charcoal hover:bg-black text-brand-yellow px-5 py-2.5 rounded-lg text-sm font-bold shadow-sm transition-all flex items-center gap-2 group border border-brand-yellow/20"
+            >
+              <span>방문 예약</span>
+              <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </button>
+          </div>
+          <div class="md:hidden flex items-center">
+            <button class="text-gray-500 hover:text-gray-700 dark:text-gray-300">
+              <span class="material-icons">menu</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="flex-grow">
+      <section class="relative pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div
+            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-yellow/10 text-brand-charcoal dark:text-brand-yellow text-xs font-bold uppercase tracking-wide mb-6"
+          >
+            <span class="w-2 h-2 rounded-full bg-brand-yellow"></span>
+            프리미엄 자동차 관리 서비스
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6">
+            당신의 소중한 차량을 위한<br class="hidden sm:block" />
+            <span class="relative inline-block">
+              정밀한 정비 케어
+              <svg
+                class="absolute w-full h-3 -bottom-1 left-0 text-brand-yellow -z-10 opacity-60"
+                preserveAspectRatio="none"
+                viewBox="0 0 100 10"
+              >
+                <path d="M0 5 Q 50 10 100 5" fill="none" stroke="currentColor" stroke-width="8"></path>
+              </svg>
+            </span>
+          </h1>
+          <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-500 dark:text-gray-400">
+            미니쿠퍼 및 수입차 전문 정비 사례를 확인하세요. 모든 과정은 투명하고 정밀하게 기록됩니다.
+          </p>
+        </div>
+      </section>
+      <div
+        class="sticky top-20 z-40 bg-background-light/95 backdrop-blur border-b border-gray-200/50 py-4 mb-12 dark:bg-background-dark/95 dark:border-gray-800"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex flex-wrap justify-center gap-2">
+              <button
+                class="px-4 py-2 bg-brand-charcoal text-brand-yellow rounded-lg text-sm font-bold shadow-md transition-transform hover:-translate-y-0.5"
+              >
+                전체
+              </button>
+              <button
+                class="px-4 py-2 bg-white border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 hover:text-brand-charcoal transition-colors dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:hover:text-white"
+              >
+                경정비
+              </button>
+              <button
+                class="px-4 py-2 bg-white border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 hover:text-brand-charcoal transition-colors dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:hover:text-white"
+              >
+                튜닝
+              </button>
+              <button
+                class="px-4 py-2 bg-white border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 hover:text-brand-charcoal transition-colors dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:hover:text-white"
+              >
+                수리
+              </button>
+              <button
+                class="px-4 py-2 bg-white border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 hover:text-brand-charcoal transition-colors dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:hover:text-white"
+              >
+                디테일링
+              </button>
+            </div>
+            <div class="text-xs text-gray-500 font-medium uppercase tracking-wider dark:text-gray-400">
+              최신 정비 사례 12건 표시 중
+            </div>
+          </div>
+        </div>
+      </div>
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <h2 class="text-2xl font-bold mb-8 text-gray-900 dark:text-white">정비 사례</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+          <div
+            class="group relative bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 dark:border-gray-800"
+          >
+            <div class="aspect-w-4 aspect-h-3 overflow-hidden bg-gray-200 relative h-64">
+              <img
+                alt="리어 브레이크 패드 교체 작업"
+                class="w-full h-full object-cover image-zoom"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIb150huiJQVAqz8fsVqc-adyJzSkgVQCC6S15QdINCxgKVsEhPSYyuMkBU7nX8GZWAuU9M6Em6rjbwH5yYiqNNiRVXf5oqWTYR6IPbotUrR0FutN7w_qh9rz06QKdUR6g0LtmdaFRkSYkOzzUsvoY4DGpnGQ36DWIwsHtUL-OoEJJ-V6JmCuuFfpa6seMJICzw9peHTFf08YTMGoXZdUoXCQBP9Dg4fuocLnIxB5qvEoUOSjj40j7SVqIsU_c3f5yrRdn-Lg2E7PK"
+              />
+              <div class="absolute bottom-4 left-4 flex gap-2 z-10">
+                <span
+                  class="inline-flex items-center px-2.5 py-1 rounded bg-brand-charcoal/90 backdrop-blur-sm text-xs font-bold text-white uppercase tracking-wider shadow-sm"
+                >
+                  [미니쿠퍼]
+                </span>
+                <span
+                  class="inline-flex items-center px-2.5 py-1 rounded bg-brand-yellow text-brand-charcoal backdrop-blur-sm text-xs font-bold uppercase tracking-wider shadow-sm"
+                >
+                  [브레이크 패드]
+                </span>
+              </div>
+              <div
+                class="absolute inset-0 bg-brand-charcoal/40 card-hover-overlay flex items-center justify-center backdrop-blur-[2px]"
+              >
+                <div
+                  class="bg-white text-brand-charcoal px-4 py-2 rounded-full font-bold text-sm flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-lg"
+                >
+                  <span>네이버 블로그에서 보기</span>
+                  <span class="material-icons text-sm text-brand-yellow">open_in_new</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex justify-between items-start mb-2">
+                <h3
+                  class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-brand-yellow transition-colors"
+                >
+                  리어 브레이크 패드 교체
+                </h3>
+                <span class="text-xs text-gray-400 mt-1">2일 전</span>
+              </div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+                2021년식 미니쿠퍼 S 모델의 마모된 리어 브레이크 패드 교체 과정입니다. 센서 리셋 및 시운전 점검까지
+                완료되었습니다.
+              </p>
+            </div>
+          </div>
+          <div
+            class="group relative bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 dark:border-gray-800"
+          >
+            <div class="aspect-w-4 aspect-h-3 overflow-hidden bg-gray-200 relative h-64">
+              <img
+                alt="100% 합성유 엔진오일 서비스"
+                class="w-full h-full object-cover image-zoom"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUMdOHcmlUUgDn2MiToIjMLnz_EsFEYmAg07Xmw4MrE9w35imX2x0RLJEyf69UjcpNCUxwyoWKeA6VG0iJekqvO_rQaChUZC83rS6sB_oC2IfwhLcaEDGFIjf-E5irmC-dpuv5HGcaOOObEK8xfrc9ZQ0ob5IDzZffsKl8k2d7AkakcT8SV4Jsa4pC68kZjLR1R_N2fC8lJgxpgbCOnhHwV4JWOnttIaSzh5XWvkIKBjcYMpsy1IebXKwUOBlng-ELxeaomSvpPgQ4"
+              />
+              <div class="absolute bottom-4 left-4 flex gap-2 z-10">
+                <span
+                  class="inline-flex items-center px-2.5 py-1 rounded bg-brand-charcoal/90 backdrop-blur-sm text-xs font-bold text-white uppercase tracking-wider shadow-sm"
+                >
+                  [BMW 3시리즈]
+                </span>
+                <span
+                  class="inline-flex items-center px-2.5 py-1 rounded bg-brand-charcoal/90 backdrop-blur-sm text-xs font-bold text-white uppercase tracking-wider shadow-sm"
+                >
+                  [엔진오일]
+                </span>
+              </div>
+              <div
+                class="absolute inset-0 bg-brand-charcoal/40 card-hover-overlay flex items-center justify-center backdrop-blur-[2px]"
+              >
+                <div
+                  class="bg-white text-brand-charcoal px-4 py-2 rounded-full font-bold text-sm flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-lg"
+                >
+                  <span>네이버 블로그에서 보기</span>
+                  <span class="material-icons text-sm text-brand-yellow">open_in_new</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex justify-between items-start mb-2">
+                <h3
+                  class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-brand-yellow transition-colors"
+                >
+                  100% 합성유 엔진오일 서비스
+                </h3>
+                <span class="text-xs text-gray-400 mt-1">5일 전</span>
+              </div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+                정기 정비를 위한 필터 교체 및 전체적인 시스템 진단이 포함된 고품질 합성 엔진오일 서비스입니다.
+              </p>
+            </div>
+          </div>
+          <div
+            class="group relative bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 dark:border-gray-800"
+          >
+            <div class="aspect-w-4 aspect-h-3 overflow-hidden bg-gray-200 relative h-64">
+              <img
+                alt="프리미엄 광택 및 코팅"
+                class="w-full h-full object-cover image-zoom"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2Ukm7IOSW3Oyso8lfXos6GnNDpSqW63Uwq9gH71QWB7IiJPGvrXlZgMH4iSxG1lztWTprAbTRgQAr_TjZ-SQoW8A-r1QRVt7FM17xNSaI3VI9XvlxX-AFJcA3wtVbHXk54O4oxbWxwVN6jOJiLhrLLtu0xh4wvVpwOWdtwnuqHYC5dnBVa-gM62zLepLt0NUH9ShhskemetZHmdmhjN730c3tuFDgJmZu_-Gh6CVjEKyvf2x4cNmYxAXmJEmcJFShGJM46OfqvPxz"
+              />
+              <div class="absolute bottom-4 left-4 flex gap-2 z-10">
+                <span
+                  class="inline-flex items-center px-2.5 py-1 rounded bg-brand-charcoal/90 backdrop-blur-sm text-xs font-bold text-white uppercase tracking-wider shadow-sm"
+                >
+                  [미니 클럽맨]
+                </span>
+                <span
+                  class="inline-flex items-center px-2.5 py-1 rounded bg-brand-yellow/90 backdrop-blur-sm text-xs font-bold text-brand-charcoal uppercase tracking-wider shadow-sm"
+                >
+                  [디테일링]
+                </span>
+              </div>
+              <div
+                class="absolute inset-0 bg-brand-charcoal/40 card-hover-overlay flex items-center justify-center backdrop-blur-[2px]"
+              >
+                <div
+                  class="bg-white text-brand-charcoal px-4 py-2 rounded-full font-bold text-sm flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-lg"
+                >
+                  <span>네이버 블로그에서 보기</span>
+                  <span class="material-icons text-sm text-brand-yellow">open_in_new</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex justify-between items-start mb-2">
+                <h3
+                  class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-brand-yellow transition-colors"
+                >
+                  프리미엄 광택 및 코팅
+                </h3>
+                <span class="text-xs text-gray-400 mt-1">1주일 전</span>
+              </div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+                도장면 복원을 위한 다단계 폴리싱 작업 및 세라믹 코팅 시공으로 신차 수준의 광택을 되찾아드렸습니다.
+              </p>
+            </div>
+          </div>
+          <div
+            class="group relative bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 dark:border-gray-800"
+          >
+            <div class="aspect-w-4 aspect-h-3 overflow-hidden bg-gray-200 relative h-64">
+              <img
+                alt="하체 컨트롤 암 수리"
+                class="w-full h-full object-cover image-zoom"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbpGLuf0J43o6ThixZnyRrb-9dD52hIOqtUnI4uN0vuJ9qGFq00geeWmkBDpBBK6l__d8DZ5d6Gi_y7tSwIuNK7GYwZj8UpgKQC4GB3kGtbpVE8qMHQ0-1AouQqw1UI5GUdzr8CpQd_N1hscyuWva2bNowkXv0rBD-Aw8_dPGC3MwM82GlyrWWBK5P6N_qx60HjoWld1ZghBNLqsRXZksg457mjSVPX93J7yAhPXGdEorVXdtAubaJBzGknsgfrTMoxuGHgr1xboJl"
+              />
+              <div class="absolute bottom-4 left-4 flex gap-2 z-10">
+                <span
+                  class="inline-flex items-center px-2.5 py-1 rounded bg-brand-charcoal/90 backdrop-blur-sm text-xs font-bold text-white uppercase tracking-wider shadow-sm"
+                >
+                  [아우디 A4]
+                </span>
+                <span
+                  class="inline-flex items-center px-2.5 py-1 rounded bg-brand-charcoal/90 backdrop-blur-sm text-xs font-bold text-white uppercase tracking-wider shadow-sm"
+                >
+                  [하체 수리]
+                </span>
+              </div>
+              <div
+                class="absolute inset-0 bg-brand-charcoal/40 card-hover-overlay flex items-center justify-center backdrop-blur-[2px]"
+              >
+                <div
+                  class="bg-white text-brand-charcoal px-4 py-2 rounded-full font-bold text-sm flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-lg"
+                >
+                  <span>네이버 블로그에서 보기</span>
+                  <span class="material-icons text-sm text-brand-yellow">open_in_new</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex justify-between items-start mb-2">
+                <h3
+                  class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-brand-yellow transition-colors"
+                >
+                  하체 컨트롤 암 수리
+                </h3>
+                <span class="text-xs text-gray-400 mt-1">1주일 전</span>
+              </div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+                주행 중 하체 소음 및 핸들 유격 해결을 위해 마모된 컨트롤 암 부싱 교체 및 휠 얼라이먼트 작업을
+                진행했습니다.
+              </p>
+            </div>
+          </div>
+          <div
+            class="group relative bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 dark:border-gray-800"
+          >
+            <div class="aspect-w-4 aspect-h-3 overflow-hidden bg-gray-200 relative h-64">
+              <img
+                alt="배기 시스템 업그레이드"
+                class="w-full h-full object-cover image-zoom"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgH3SFu4KxGJddTFuLVfQnUzMiyuCaQsiXp7947yliIfKo2TSe8KPGGw3IYfNApQayShl1cJ9mBjAhNnuZs-_GAkgaA7vjReE3pJibWRYnWeOs2RQGdfam522OLSkvD_72WXWpOA_MVN7Eo9hh2TNjs73O02TdUs4LX14d8czJrT-CtGzVhjGgR_llahgSmjiMpO8qk5BR4S8UANaMygHO9yxH2uS6hDTg6fZSpyX6groqFuy9NVPdxtXYzQ0XpAcyJuaVEzHrwaLb"
+              />
+              <div class="absolute bottom-4 left-4 flex gap-2 z-10">
+                <span
+                  class="inline-flex items-center px-2.5 py-1 rounded bg-brand-charcoal/90 backdrop-blur-sm text-xs font-bold text-white uppercase tracking-wider shadow-sm"
+                >
+                  [미니 JCW]
+                </span>
+                <span
+                  class="inline-flex items-center px-2.5 py-1 rounded bg-brand-charcoal/90 backdrop-blur-sm text-xs font-bold text-white uppercase tracking-wider shadow-sm"
+                >
+                  [튜닝]
+                </span>
+              </div>
+              <div
+                class="absolute inset-0 bg-brand-charcoal/40 card-hover-overlay flex items-center justify-center backdrop-blur-[2px]"
+              >
+                <div
+                  class="bg-white text-brand-charcoal px-4 py-2 rounded-full font-bold text-sm flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-lg"
+                >
+                  <span>네이버 블로그에서 보기</span>
+                  <span class="material-icons text-sm text-brand-yellow">open_in_new</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex justify-between items-start mb-2">
+                <h3
+                  class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-brand-yellow transition-colors"
+                >
+                  배기 시스템 업그레이드
+                </h3>
+                <span class="text-xs text-gray-400 mt-1">2주일 전</span>
+              </div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+                사운드 및 출력 향상을 위한 캣백 배기 시스템 장착 작업입니다. JCW 모델 특유의 스포티함을 극대화했습니다.
+              </p>
+            </div>
+          </div>
+          <div
+            class="group relative bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 dark:border-gray-800"
+          >
+            <div class="aspect-w-4 aspect-h-3 overflow-hidden bg-gray-200 relative h-64">
+              <img
+                alt="전자 계통 정밀 진단"
+                class="w-full h-full object-cover image-zoom"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLz6Pz4JoLhhV4XKjPyQKRDCxZJI_1f3jzuWEJrpNyMONhYdO6008xx2x8gy9psgm6Bq9cb5m14hH9QhulnKm_H9kl8O35YFpSrNCPmlfZP5whLKU1Pb75Z3hloJ2AcQ0Dcp2S7YxIp5zvtebpnDsqLDTkoIJ1TNrHbD2FX_M6_nKm3BLbR35HkiXlE5tWXBzzgSHwIQqbOAqIaniDEHKpLNyASN7aNfKw3iIe81SH8E5hqF4LZnGHx5aj6iD2FtUbXvEQGypjLWQR"
+              />
+              <div class="absolute bottom-4 left-4 flex gap-2 z-10">
+                <span
+                  class="inline-flex items-center px-2.5 py-1 rounded bg-brand-charcoal/90 backdrop-blur-sm text-xs font-bold text-white uppercase tracking-wider shadow-sm"
+                >
+                  [포르쉐 911]
+                </span>
+                <span
+                  class="inline-flex items-center px-2.5 py-1 rounded bg-brand-yellow text-brand-charcoal backdrop-blur-sm text-xs font-bold uppercase tracking-wider shadow-sm"
+                >
+                  [진단]
+                </span>
+              </div>
+              <div
+                class="absolute inset-0 bg-brand-charcoal/40 card-hover-overlay flex items-center justify-center backdrop-blur-[2px]"
+              >
+                <div
+                  class="bg-white text-brand-charcoal px-4 py-2 rounded-full font-bold text-sm flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-lg"
+                >
+                  <span>네이버 블로그에서 보기</span>
+                  <span class="material-icons text-sm text-brand-yellow">open_in_new</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex justify-between items-start mb-2">
+                <h3
+                  class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-brand-yellow transition-colors"
+                >
+                  전자 계통 정밀 진단
+                </h3>
+                <span class="text-xs text-gray-400 mt-1">3주일 전</span>
+              </div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+                간헐적으로 발생하는 경고등 문제 해결을 위해 전용 스캐너를 이용한 회로 점검 및 소프트웨어 업데이트를
+                진행했습니다.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-16 text-center">
+          <button
+            class="inline-flex items-center px-8 py-3 bg-brand-charcoal text-brand-yellow border border-brand-charcoal rounded-lg text-base font-bold hover:bg-black transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-yellow"
+          >
+            <span class="mr-2">정비 사례 더보기</span>
+            <span class="material-icons text-sm">expand_more</span>
+          </button>
+        </div>
+      </section>
+    </main>
+    <footer class="bg-white border-t border-gray-200 dark:bg-brand-charcoal dark:border-gray-800">
+      <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+          <div class="flex flex-col gap-4">
+            <div class="flex items-center gap-3">
+              <div
+                class="w-8 h-8 bg-brand-charcoal flex items-center justify-center rounded border border-brand-yellow/30"
+              >
+                <span class="text-brand-yellow font-bold text-sm">JM</span>
+              </div>
+              <span class="font-bold text-lg text-gray-900 dark:text-white">JM MOTORI</span>
+            </div>
+            <p class="text-sm text-gray-500 max-w-xs dark:text-gray-400">
+              유럽차 전문 정비 및 튜닝 센터.<br />
+              전문 기술진의 정밀한 서비스로 보답하겠습니다.
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-8 sm:gap-12">
+            <div>
+              <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3 dark:text-white">연락처</h4>
+              <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                <li class="flex items-center gap-2">
+                  <span class="material-icons text-sm text-brand-yellow">call</span>
+                  010-1234-5678
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="material-icons text-sm text-brand-yellow">email</span>
+                  info@jmmotori.kr
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3 dark:text-white">위치</h4>
+              <div class="text-sm text-gray-500 dark:text-gray-400 flex flex-col gap-2">
+                <p>서울특별시 강남구 정비로 123</p>
+                <p>JM 모토리 본점</p>
+                <a class="text-brand-yellow hover:underline font-medium inline-flex items-center gap-1 mt-1" href="#">
+                  지도 보기 <span class="material-icons text-xs">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <p class="text-xs text-gray-400">© 2023 JM MOTORI. All rights reserved.</p>
+          <div class="flex space-x-6">
+            <a class="text-gray-400 hover:text-brand-yellow" href="#">
+              <span class="sr-only">Instagram</span>
+              <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  clip-rule="evenodd"
+                  d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.468 2.373c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                  fill-rule="evenodd"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<!-- JM MOTORI Contact & Info v1.1 -->
+<!doctype html>
+<html class="dark" lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>JM모토리 안내 및 푸터</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;family=Noto+Sans+KR:wght@300;400;500;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#FFC107",
+              "background-light": "#f8f8f5",
+              "background-dark": "#212529",
+              "surface-dark": "#2C3034",
+              "metal-silver": "#6C757D",
+              "off-white": "#F8F9FA",
+            },
+            fontFamily: {
+              display: ["Noto Sans KR", "Manrope", "sans-serif"],
+            },
+            borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      .map-filter {
+        filter: grayscale(100%) invert(92%) contrast(83%);
+        mix-blend-mode: luminosity;
+      }
+      @keyframes pulse-yellow {
+        0% {
+          box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(255, 193, 7, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+        }
+      }
+      .pulse-ring {
+        animation: pulse-yellow 2s infinite;
+      }
+    </style>
+  </head>
+  <body
+    class="font-display bg-background-light dark:bg-background-dark text-gray-900 dark:text-off-white min-h-screen flex flex-col justify-between"
+  >
+    <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl w-full mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+          <div
+            class="relative w-full h-96 lg:h-auto min-h-[400px] rounded-lg overflow-hidden shadow-2xl border border-white/5 order-2 lg:order-1 group"
+          >
+            <div class="absolute inset-0 bg-surface-dark">
+              <img
+                alt="JM모토리 위치 지도"
+                class="w-full h-full object-cover map-filter opacity-60 group-hover:opacity-70 transition-opacity duration-500"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxW4Z6OwK0FJk-1bE2lgR4OUU35vRqVELdirpyAWUjj4gTPSkuLlFS3d5QFU5vk9gfR8jf2eY5gFEWPRYDTwP4-VpEXcxjijdAv1FFbDEcvxcGNz7LAWC-FJZFDQbLz2adxfOwOzXuUe2HrRDlXVt9hvCXZt_A3_bgfY-EbbfpGEKy6braCe6feiWOlEDeZtVsi-59_u7DiEEp_lmO3bAKpvHCzBxGw33veGcFYWLOm9qWwV--_KvSG-rmGYM_oHgJK4GUQQoPAJOb"
+              />
+            </div>
+            <div
+              class="absolute bottom-6 left-6 right-6 bg-surface-dark/95 backdrop-blur-sm p-4 rounded-lg border border-white/10 shadow-lg lg:max-w-xs"
+            >
+              <div class="flex items-start space-x-3">
+                <span class="material-icons-round text-primary mt-1">location_on</span>
+                <div>
+                  <h3 class="font-bold text-white text-lg">JM MOTORI 정비소</h3>
+                  <p class="text-gray-400 text-sm mt-1">서울특별시 강남구 테헤란로 123<br />JM 빌딩 1층</p>
+                  <a class="inline-flex items-center text-primary text-sm font-semibold mt-3 hover:underline" href="#">
+                    길 찾기
+                    <span class="material-icons-round text-sm ml-1">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col justify-center space-y-8 order-1 lg:order-2">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <h2 class="text-primary font-bold tracking-wider uppercase text-sm">매장 정보 및 문의</h2>
+                <div
+                  class="inline-flex items-center bg-surface-dark border border-white/10 px-3 py-1.5 rounded-full shadow-sm"
+                >
+                  <span class="relative flex h-3 w-3 mr-2">
+                    <span
+                      class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"
+                    ></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-primary pulse-ring"></span>
+                  </span>
+                  <span class="text-xs font-bold text-white tracking-wide">현재 영업 중</span>
+                </div>
+              </div>
+              <h1 class="text-3xl lg:text-4xl font-extrabold text-white leading-tight">
+                전문적인 서비스,<br />
+                <span class="text-metal-silver">정성을 다하는 케어</span>
+              </h1>
+            </div>
+            <div class="space-y-6">
+              <div
+                class="bg-surface-dark p-6 rounded-lg border border-white/5 hover:border-primary/30 transition-colors duration-300"
+              >
+                <p class="text-gray-400 text-sm mb-1">고객 지원 센터</p>
+                <a
+                  class="block text-4xl lg:text-5xl font-extrabold text-primary tracking-tight hover:opacity-90 transition-opacity"
+                  href="tel:+821012345678"
+                >
+                  +82 10-1234-5678
+                </a>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-surface-dark p-6 rounded-lg border border-white/5">
+                  <div class="flex items-center space-x-3 mb-3">
+                    <div class="p-2 bg-primary/10 rounded-lg">
+                      <span class="material-icons-round text-primary">mail</span>
+                    </div>
+                    <h3 class="font-bold text-white">이메일 문의</h3>
+                  </div>
+                  <a
+                    class="text-gray-300 hover:text-primary transition-colors block break-all"
+                    href="mailto:contact@jmmotori.com"
+                  >
+                    contact@jmmotori.com
+                  </a>
+                </div>
+                <div class="bg-surface-dark p-6 rounded-lg border border-white/5">
+                  <div class="flex items-center space-x-3 mb-3">
+                    <div class="p-2 bg-primary/10 rounded-lg">
+                      <span class="material-icons-round text-primary">confirmation_number</span>
+                    </div>
+                    <h3 class="font-bold text-white">예약하기</h3>
+                  </div>
+                  <p class="text-gray-300">온라인 또는 앱 예약</p>
+                </div>
+              </div>
+            </div>
+            <div class="bg-surface-dark rounded-lg p-6 lg:p-8 border-l-4 border-primary shadow-lg">
+              <div class="flex items-center space-x-2 mb-6">
+                <span class="material-icons-round text-primary">schedule</span>
+                <h3 class="text-xl font-bold text-white">영업 시간</h3>
+              </div>
+              <div class="space-y-3">
+                <div class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                  <span class="text-gray-300 font-medium">월요일 - 금요일</span>
+                  <span class="text-white font-bold">08:00 - 19:00</span>
+                </div>
+                <div class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                  <span class="text-gray-300 font-medium">토요일</span>
+                  <span class="text-white font-bold">09:00 - 17:00</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                  <span class="text-gray-300 font-medium">일요일(휴무)</span>
+                  <span class="text-primary font-bold">휴무</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="bg-surface-dark border-t border-white/5 py-8 mt-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <div class="text-center md:text-left">
+            <div class="flex items-center justify-center md:justify-start space-x-2 mb-1">
+              <span class="material-icons-round text-primary">build_circle</span>
+              <span class="font-bold text-lg text-white tracking-wide">JM MOTORI</span>
+            </div>
+            <div class="text-metal-silver text-xs space-y-1">
+              <p>© 2024 JM MOTORI. All rights reserved.</p>
+              <p>사업자 등록번호: 123-45-67890</p>
+              <div class="flex justify-center md:justify-start space-x-3 mt-2">
+                <a class="hover:text-primary transition-colors" href="#">이용약관</a>
+                <span class="opacity-30">|</span>
+                <a class="hover:text-primary transition-colors font-bold" href="#">개인정보처리방침</a>
+              </div>
+            </div>
+          </div>
+          <div class="flex space-x-6">
+            <a class="text-metal-silver hover:text-primary transition-colors transform hover:scale-110" href="#">
+              <span class="sr-only">Facebook</span>
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  clip-rule="evenodd"
+                  d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                  fill-rule="evenodd"
+                ></path>
+              </svg>
+            </a>
+            <a class="text-metal-silver hover:text-primary transition-colors transform hover:scale-110" href="#">
+              <span class="sr-only">Instagram</span>
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  clip-rule="evenodd"
+                  d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772 4.902 4.902 0 011.772-1.153c.636-.247 1.363-.416 2.427-.465C9.673 2.013 10.03 2 12.315 2zm-3.196 3.213a1.71 1.71 0 101.213 2.912 1.71 1.71 0 00-1.213-2.912zm3.196 2.196a6.596 6.596 0 100 13.192 6.596 6.596 0 000-13.192zm0 2.396a4.2 4.2 0 110 8.4 4.2 4.2 0 010-8.4z"
+                  fill-rule="evenodd"
+                ></path>
+              </svg>
+            </a>
+            <a class="text-metal-silver hover:text-primary transition-colors transform hover:scale-110" href="#">
+              <span class="sr-only">Twitter</span>
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

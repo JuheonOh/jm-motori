@@ -1,0 +1,164 @@
+<!doctype html>
+<html class="dark" lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>JM모토리 | BMW & MINI 전문 정비</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#FFC107", // 간판 노란색
+                        charcoal: "#212529", // 간판 및 프레임 배경색
+                        background: "#F8F9FA",
+                    },
+                    fontFamily: { sans: ["Noto Sans KR", "sans-serif"] },
+                },
+            },
+        };
+    </script>
+    <style type="text/tailwindcss">
+        @layer base { html { scroll-behavior: smooth; } }
+        .glass-nav { background-color: rgba(33, 37, 41, 0.85); backdrop-filter: blur(12px); }
+        .hero-gradient { background: linear-gradient(to right, rgba(33, 37, 41, 0.9) 0%, rgba(33, 37, 41, 0.3) 100%); }
+    </style>
+</head>
+<body class="bg-background dark:bg-charcoal font-sans antialiased text-gray-900 dark:text-gray-100">
+
+    <nav class="fixed top-0 left-0 w-full z-50 glass-nav border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <a class="text-2xl font-black tracking-tighter" href="#">
+                <span class="text-primary">JM</span><span class="text-white">MOTORI</span>
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
+                <a class="hover:text-primary transition" href="#services">정비 서비스</a>
+                <a class="hover:text-primary transition" href="#portfolio">정비 사례</a>
+                <a class="hover:text-primary transition" href="#contact">오시는 길</a>
+                <a class="bg-primary text-black px-4 py-2 rounded font-bold" href="tel:010-4195-7485">상담하기</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative w-full h-screen flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img alt="JM모토리 정비 현장" class="w-full h-full object-cover" src="2.jpg" />
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4">
+            <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/20 border border-primary/40 mb-8">
+                <span class="text-primary text-xs font-bold tracking-widest uppercase">BMW & MINI Specialist</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black text-white mb-8 leading-tight">
+                미니쿠퍼 전문,<br />
+                <span class="text-primary">정직한 정비</span><br />
+                JM모토리
+            </h1>
+            <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-xl border-l-4 border-primary pl-6">
+                밝은 LED 조명 아래 최신 장비로 정밀 진단합니다.<br />
+                내 차를 아끼는 마음으로 최상의 컨디션을 약속드립니다.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="tel:010-4195-7485" class="bg-primary text-black font-extrabold text-xl px-10 py-5 rounded shadow-lg text-center transition hover:scale-105">
+                    실시간 전화 상담
+                </a>
+                <a href="https://blog.naver.com/ablymotors" target="_blank" class="bg-white/10 backdrop-blur-md text-white border border-white/30 font-bold text-xl px-10 py-5 rounded text-center transition hover:bg-white/20">
+                    블로그 정비 일지
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="services" class="py-24 bg-white dark:bg-charcoal px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-black mb-12 text-center text-primary uppercase tracking-tighter">Professional Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 bg-gray-50 dark:bg-gray-800 rounded-xl border-l-4 border-primary">
+                    <span class="material-icons text-primary text-4xl mb-4">settings_suggest</span>
+                    <h3 class="text-xl font-bold mb-2 text-white">BMW & MINI 정밀 진단</h3>
+                    <p class="text-gray-400 text-sm">전용 스캐너를 활용한 엔진 및 전기 계통 고장 코드 정밀 판독.</p>
+                </div>
+                <div class="p-8 bg-gray-50 dark:bg-gray-800 rounded-xl border-l-4 border-primary">
+                    <span class="material-icons text-primary text-4xl mb-4">oil_barrel</span>
+                    <h3 class="text-xl font-bold mb-2 text-white">메인터넌스 케어</h3>
+                    <p class="text-gray-400 text-sm">최고급 합성유 엔진오일, 미션오일 및 각종 소모품 정기 관리.</p>
+                </div>
+                <div class="p-8 bg-gray-50 dark:bg-gray-800 rounded-xl border-l-4 border-primary">
+                    <span class="material-icons text-primary text-4xl mb-4">build</span>
+                    <h3 class="text-xl font-bold mb-2 text-white">하체 정비 및 튜닝</h3>
+                    <p class="text-gray-400 text-sm">서스펜션 교체, 브레이크 업그레이드 및 하체 소음 정밀 진단.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="py-24 bg-gray-50 dark:bg-gray-900 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-end mb-12">
+                <h2 class="text-3xl font-black text-white">최신 정비 사례</h2>
+                <a href="https://blog.naver.com/ablymotors" class="text-primary font-bold hover:underline">블로그에서 더보기</a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="rounded-xl overflow-hidden group relative">
+                    <img src="3.jpg" class="w-full h-80 object-cover group-hover:scale-105 transition duration-500" />
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                        <span class="text-white font-bold bg-primary/80 px-4 py-2 rounded">미니쿠퍼 정비 완료</span>
+                    </div>
+                </div>
+                <div class="rounded-xl overflow-hidden group relative">
+                    <img src="4.jpg" class="w-full h-80 object-cover group-hover:scale-105 transition duration-500" />
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                        <span class="text-white font-bold bg-primary/80 px-4 py-2 rounded">하체 진단 및 수리</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-white dark:bg-charcoal px-4">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+                <img src="1.jpg" class="rounded-xl shadow-2xl mb-8" alt="JM모토리 외관" />
+                <div class="space-y-4">
+                    <h2 class="text-4xl font-black text-white">CONTACT INFO</h2>
+                    <p class="text-primary text-3xl font-bold">010-4195-7485</p>
+                    <p class="text-gray-400">광주광역시 북구 정비 단지 내 위치 (미니쿠퍼 전문)</p>
+                </div>
+            </div>
+            <div class="bg-gray-800 p-10 rounded-xl border border-white/5 shadow-2xl">
+                <h3 class="text-2xl font-bold mb-8 text-white flex items-center">
+                    <span class="material-icons text-primary mr-2">schedule</span> 영업 시간 안내
+                </h3>
+                <div class="space-y-4 text-gray-300">
+                    <div class="flex justify-between border-b border-white/10 pb-2">
+                        <span>평일 (월-금)</span>
+                        <span class="text-white font-bold">08:30 - 18:30</span>
+                    </div>
+                    <div class="flex justify-between border-b border-white/10 pb-2">
+                        <span>토요일</span>
+                        <span class="text-white font-bold">09:00 - 15:00</span>
+                    </div>
+                    <div class="flex justify-between text-primary">
+                        <span>일요일 및 공휴일</span>
+                        <span class="font-bold">휴무</span>
+                    </div>
+                </div>
+                <div class="mt-10">
+                    <a href="https://blog.naver.com/ablymotors" class="w-full bg-primary/10 border border-primary text-primary py-4 rounded-lg font-bold flex items-center justify-center hover:bg-primary hover:text-black transition">
+                        네이버 블로그 상담 바로가기
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 bg-charcoal border-t border-white/5 text-center text-gray-500 text-sm">
+        <p>© 2026 JM MOTORI. 모든 정비는 예약제로 운영됩니다.</p>
+    </footer>
+
+</body>
+</html>
