@@ -6,6 +6,8 @@ const RSS_URL = "https://rss.blog.naver.com/ablymotors.xml";
 const REQUEST_TIMEOUT_MS = 12000;
 const OUTPUT_RELATIVE_PATH = path.join("public", "data", "blog-feed.json");
 const MAX_ITEMS = 12;
+const THUMB_PROXY_BASE = "https://wsrv.nl/?url=";
+const THUMB_PROXY_PARAMS = "&w=960&h=600&fit=cover&output=webp&q=80";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, "..");
@@ -62,10 +64,20 @@ function toSafeUrl(url, fallback = "") {
   return fallback;
 }
 
+function toThumbnailProxyUrl(url, fallback = "") {
+  const safeUrl = toSafeUrl(url, fallback);
+  if (!safeUrl || safeUrl === fallback) return fallback;
+  if (safeUrl.startsWith("/")) return safeUrl;
+  if (safeUrl.includes("wsrv.nl/?url=")) return safeUrl;
+
+  const protocolLessUrl = safeUrl.replace(/^https?:\/\//i, "");
+  return `${THUMB_PROXY_BASE}${encodeURIComponent(protocolLessUrl)}${THUMB_PROXY_PARAMS}`;
+}
+
 function extractThumbnail(descriptionHtml, fallbackThumb) {
   const match = descriptionHtml.match(/<img[^>]+src=["']([^"']+)["']/i);
   if (!match) return fallbackThumb;
-  return toSafeUrl(match[1], fallbackThumb);
+  return toThumbnailProxyUrl(match[1], fallbackThumb);
 }
 
 function parsePosts(xmlText, fallbackThumb) {

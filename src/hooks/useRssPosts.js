@@ -6,6 +6,8 @@ const FEED_JSON_URL = `${baseUrl}data/blog-feed.json`;
 const fallbackThumb = `${baseUrl}assets/images/3.jpg`;
 const REQUEST_TIMEOUT_MS = 8000;
 const STORAGE_KEY = "jm_blog_feed_cache_v1";
+const THUMB_PROXY_BASE = "https://wsrv.nl/?url=";
+const THUMB_PROXY_PARAMS = "&w=960&h=600&fit=cover&output=webp&q=80";
 
 const proxyUrls = [
   `https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`,
@@ -20,6 +22,16 @@ function toSafeUrl(url, fallback) {
   return fallback;
 }
 
+function toThumbnailProxyUrl(url, fallback = fallbackThumb) {
+  const safeUrl = toSafeUrl(url, fallback);
+  if (!safeUrl || safeUrl === fallback) return fallback;
+  if (safeUrl.startsWith("/")) return safeUrl;
+  if (safeUrl.includes("wsrv.nl/?url=")) return safeUrl;
+
+  const protocolLessUrl = safeUrl.replace(/^https?:\/\//i, "");
+  return `${THUMB_PROXY_BASE}${encodeURIComponent(protocolLessUrl)}${THUMB_PROXY_PARAMS}`;
+}
+
 function normalizeText(htmlText) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(`<div>${htmlText}</div>`, "text/html");
@@ -32,7 +44,7 @@ function extractThumbnail(htmlText) {
   const doc = parser.parseFromString(`<div>${htmlText}</div>`, "text/html");
   const image = doc.querySelector("img");
   if (!image) return fallbackThumb;
-  return toSafeUrl(image.getAttribute("src"), fallbackThumb);
+  return toThumbnailProxyUrl(image.getAttribute("src"), fallbackThumb);
 }
 
 function toDateLabel(pubDateRaw) {
@@ -60,7 +72,7 @@ function normalizePost(post, index = 0) {
       summaryRaw.length > 92
         ? `${summaryRaw.slice(0, 92)}...`
         : summaryRaw || "포스팅 미리보기가 준비되지 않았습니다.",
-    thumbnail: toSafeUrl(post?.thumbnail, fallbackThumb),
+    thumbnail: toThumbnailProxyUrl(post?.thumbnail, fallbackThumb),
     dateLabel: post?.dateLabel || toDateLabel(pubDate),
   };
 }
