@@ -122,19 +122,18 @@ export default function MapPanel() {
         renderFallback(container);
       } else {
         setMapMode("loading");
+        const handleReusableError = () => {
+          handleError(reusableScript);
+        };
         reusableScript.addEventListener("load", handleLoad, { once: true });
-        reusableScript.addEventListener(
-          "error",
-          () => {
-            handleError(reusableScript);
-          },
-          { once: true },
-        );
-      }
+        reusableScript.addEventListener("error", handleReusableError, { once: true });
 
-      return () => {
-        reusableScript.removeEventListener("load", handleLoad);
-      };
+        return () => {
+          reusableScript.removeEventListener("load", handleLoad);
+          reusableScript.removeEventListener("error", handleReusableError);
+        };
+      }
+      return undefined;
     }
 
     const script = document.createElement("script");
@@ -142,25 +141,20 @@ export default function MapPanel() {
     script.async = true;
     script.src = NAVER_MAP_SCRIPT_SRC;
     setMapMode("loading");
-    script.addEventListener(
-      "load",
-      () => {
-        script.dataset.loadState = "loaded";
-        handleLoad();
-      },
-      { once: true },
-    );
-    script.addEventListener(
-      "error",
-      () => {
-        handleError(script);
-      },
-      { once: true },
-    );
+    const onScriptLoad = () => {
+      script.dataset.loadState = "loaded";
+      handleLoad();
+    };
+    const onScriptError = () => {
+      handleError(script);
+    };
+    script.addEventListener("load", onScriptLoad, { once: true });
+    script.addEventListener("error", onScriptError, { once: true });
     document.head.appendChild(script);
 
     return () => {
-      script.removeEventListener("load", handleLoad);
+      script.removeEventListener("load", onScriptLoad);
+      script.removeEventListener("error", onScriptError);
     };
   }, []);
 
@@ -191,7 +185,7 @@ export default function MapPanel() {
       <div className="relative">
         <div className="h-90 w-full bg-slate-800" ref={mapRef} />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.75)_100%)] p-4">
-          <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#ffc107]">Address</p>
+          <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#ffc107]">주소</p>
           <p className="mt-1 text-sm font-bold text-white">{STORE.roadAddress}</p>
           <p className="mt-0.5 text-xs text-slate-300">{STORE.jibunAddress}</p>
         </div>
