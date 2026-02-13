@@ -1,4 +1,5 @@
-﻿import MapPanel from "./components/MapPanel";
+﻿import { useEffect, useState } from "react";
+import MapPanel from "./components/MapPanel";
 import { BLOG_URL, NAV_LINKS, NAVER_MAP_SEARCH_URL, SERVICES, STORE } from "./constants";
 import { useBusinessStatus } from "./hooks/useBusinessStatus";
 import { useRssPosts } from "./hooks/useRssPosts";
@@ -9,6 +10,8 @@ const image2 = `${baseUrl}assets/images/2.jpg`;
 const image3 = `${baseUrl}assets/images/3.jpg`;
 const rssFallbackImage = `${baseUrl}assets/images/3.jpg`;
 const containerClass = "mx-auto w-[min(1120px,calc(100%-2rem))] max-[760px]:w-[min(1120px,calc(100%-1.2rem))]";
+const INITIAL_VISIBLE_POSTS = 6;
+const LOAD_MORE_STEP = 6;
 
 function openNavigation(provider) {
   const appLinks = {
@@ -40,6 +43,11 @@ function openNavigation(provider) {
 
 function BlogCards() {
   const { posts, loading, error, refetch } = useRssPosts();
+  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_POSTS);
+
+  useEffect(() => {
+    setVisibleCount(INITIAL_VISIBLE_POSTS);
+  }, [posts.length]);
 
   if (loading) {
     return (
@@ -70,46 +78,70 @@ function BlogCards() {
     );
   }
 
+  const visiblePosts = posts.slice(0, visibleCount);
+  const hasMore = visibleCount < posts.length;
+
   return (
-    <div className="grid grid-cols-3 gap-5 max-[980px]:grid-cols-2 max-[760px]:grid-cols-1">
-      {posts.map((post) => (
-        <article
-          className="overflow-hidden rounded-[14px] border border-white/10 bg-[#15181b] transition hover:border-[#ffc107]/50"
-          key={post.id}
-        >
-          <a href={post.link} target="_blank" rel="noopener noreferrer">
-            <div className="aspect-[16/10] overflow-hidden bg-slate-800">
-              <img
-                src={post.thumbnail}
-                alt={post.title}
-                className="h-full w-full object-cover transition duration-500 hover:scale-105"
-                loading="lazy"
-                referrerPolicy="no-referrer"
-                onError={(event) => {
-                  const img = event.currentTarget;
-                  if (img.src !== rssFallbackImage) {
-                    img.src = rssFallbackImage;
-                  }
-                }}
-              />
-            </div>
-            <div className="p-4">
-              <div className="mb-2 flex justify-between gap-2 text-xs text-slate-500">
-                <span className="font-extrabold uppercase tracking-[0.16em] text-[#ffc107]">Repair Diary</span>
-                <span>{post.dateLabel}</span>
+    <>
+      <div className="grid grid-cols-3 gap-5 max-[980px]:grid-cols-2 max-[760px]:grid-cols-1">
+        {visiblePosts.map((post) => (
+          <article
+            className="overflow-hidden rounded-[14px] border border-white/10 bg-[#15181b] transition hover:border-[#ffc107]/50"
+            key={post.id}
+          >
+            <a href={post.link} target="_blank" rel="noopener noreferrer">
+              <div className="aspect-[16/10] overflow-hidden bg-slate-800">
+                <img
+                  src={post.thumbnail}
+                  alt={post.title}
+                  className="h-full w-full object-cover transition duration-500 hover:scale-105"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                  onError={(event) => {
+                    const img = event.currentTarget;
+                    if (img.src !== rssFallbackImage) {
+                      img.src = rssFallbackImage;
+                    }
+                  }}
+                />
               </div>
-              <h3 className="overflow-hidden text-[1.06rem] font-extrabold leading-relaxed [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
-                {post.title}
-              </h3>
-              <p className="mt-3 overflow-hidden text-[0.9rem] leading-relaxed text-slate-400 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3]">
-                {post.summary}
-              </p>
-              <span className="mt-4 inline-block text-[0.9rem] font-bold text-[#ffc107]">자세히 보기</span>
-            </div>
-          </a>
-        </article>
-      ))}
-    </div>
+              <div className="p-4">
+                <div className="mb-2 flex justify-between gap-2 text-xs text-slate-500">
+                  <span className="font-extrabold uppercase tracking-[0.16em] text-[#ffc107]">Repair Diary</span>
+                  <span>{post.dateLabel}</span>
+                </div>
+                <h3 className="overflow-hidden text-[1.06rem] font-extrabold leading-relaxed [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
+                  {post.title}
+                </h3>
+                <p className="mt-3 overflow-hidden text-[0.9rem] leading-relaxed text-slate-400 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3]">
+                  {post.summary}
+                </p>
+                <span className="mt-4 inline-block text-[0.9rem] font-bold text-[#ffc107]">자세히 보기</span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      {posts.length > INITIAL_VISIBLE_POSTS && (
+        <div className="mt-6 flex flex-col items-center gap-3">
+          <p className="text-xs text-slate-400">
+            {visiblePosts.length} / {posts.length}건 표시 중
+          </p>
+          {hasMore ? (
+            <button
+              type="button"
+              onClick={() => setVisibleCount((prev) => prev + LOAD_MORE_STEP)}
+              className="inline-flex items-center justify-center rounded-[10px] border border-[#ffc107]/45 bg-[#ffc107]/10 px-5 py-3 text-sm font-extrabold text-[#ffc107] transition hover:bg-[#ffc107]/20"
+            >
+              정비 사례 더보기
+            </button>
+          ) : (
+            <p className="text-xs text-slate-500">모든 최신 사례를 확인했습니다.</p>
+          )}
+        </div>
+      )}
+    </>
   );
 }
 
@@ -121,7 +153,7 @@ export default function App() {
       <nav className="fixed inset-x-0 top-0 z-[100] border-b border-white/10 bg-black/65 backdrop-blur">
         <div className={`${containerClass} flex min-h-20 items-center justify-between`}>
           <a href="#home">
-            <p className="m-0 text-[1.8rem] font-black uppercase tracking-[0.08em]">
+            <p className="m-0 text-[1.8rem] font-extrabold uppercase tracking-[0.08em] text-white">
               <span className="text-[#ffc107]">JM</span>MOTORI
             </p>
             <p className="m-0 text-[0.62rem] font-bold uppercase tracking-[0.28em] text-slate-400">
@@ -149,12 +181,15 @@ export default function App() {
       <main id="home" className="bg-[#212529] text-slate-50">
         <header className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${image2})` }}>
           <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(0,0,0,0.86)_20%,rgba(0,0,0,0.45)_55%,rgba(0,0,0,0.72)_100%)]" />
-          <div className={`${containerClass} relative z-[1] flex min-h-screen max-w-[850px] flex-col justify-center pt-28`}>
+          <div
+            className={`${containerClass} relative z-[1] flex min-h-screen max-w-[850px] flex-col justify-center pt-28`}
+          >
             <p className="mb-5 w-fit rounded-full border border-[#ffc107]/40 bg-[#ffc107]/15 px-3 py-2 text-[0.72rem] font-bold tracking-[0.18em] text-[#ffc107]">
               GWANGJU BMW·MINI WORKSHOP
             </p>
             <h1 className="m-0 text-[clamp(2.05rem,6.4vw,4.35rem)] font-black leading-[1.1]">
-              미니쿠퍼·BMW 전문 <br className="hidden md:block" /> <span className="text-[#ffc107]">정직하고 정확한 정비</span>
+              미니쿠퍼·BMW 전문 <br className="hidden md:block" />{" "}
+              <span className="text-[#ffc107]">정직하고 정확한 정비</span>
             </h1>
             <p className="mt-6 max-w-[720px] leading-[1.7] text-slate-200">
               실제 매장 환경과 네이버 블로그의 최신 정비 사례를 실시간으로 연결해, 방문 전에도 정비 퀄리티를
@@ -177,7 +212,10 @@ export default function App() {
           </div>
         </header>
 
-        <section id="services" className="border-y border-white/10 py-20 [background-color:rgba(21,24,27,0.62)] [background-image:linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:18px_18px]">
+        <section
+          id="services"
+          className="border-y border-white/10 py-20 [background-color:rgba(21,24,27,0.62)] [background-image:linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:18px_18px]"
+        >
           <div className={containerClass}>
             <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.2em] text-[#ffc107]">Core Services</p>
             <h2 className="m-0 text-[clamp(1.7rem,4.8vw,2.3rem)] font-black">BMW & MINI 전용 정비 서비스</h2>
@@ -202,7 +240,12 @@ export default function App() {
                   ablymotors RSS를 실시간 파싱해 최신 포스팅을 카드로 자동 노출합니다.
                 </p>
               </div>
-              <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" className="text-[0.92rem] font-bold text-[#ffc107] hover:underline">
+              <a
+                href={BLOG_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[0.92rem] font-bold text-[#ffc107] hover:underline"
+              >
                 블로그 전체 보기
               </a>
             </div>
@@ -213,15 +256,32 @@ export default function App() {
         <section id="contact" className="border-t border-white/10 py-20">
           <div className={containerClass}>
             <div className="mb-6 text-center">
-              <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.2em] text-[#ffc107]">Location & Contact</p>
+              <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.2em] text-[#ffc107]">
+                Location & Contact
+              </p>
               <h2 className="m-0 text-[clamp(1.7rem,4.8vw,2.3rem)] font-black">광주 광산구 JM MOTORI</h2>
             </div>
             <div className="grid grid-cols-[1.05fr_0.95fr] gap-4 max-[980px]:grid-cols-1">
               <div>
                 <div className="mb-4 grid grid-cols-3 gap-3 max-[760px]:grid-cols-1">
-                  <img src={image1} alt="JM MOTORI 외관" loading="lazy" className="h-40 w-full rounded-xl object-cover max-[760px]:h-[180px]" />
-                  <img src={image3} alt="JM MOTORI 매장 전경" loading="lazy" className="h-40 w-full rounded-xl object-cover max-[760px]:h-[180px]" />
-                  <img src={image2} alt="JM MOTORI 정비 작업" loading="lazy" className="h-40 w-full rounded-xl object-cover max-[760px]:h-[180px]" />
+                  <img
+                    src={image1}
+                    alt="JM MOTORI 외관"
+                    loading="lazy"
+                    className="h-40 w-full rounded-xl object-cover max-[760px]:h-[180px]"
+                  />
+                  <img
+                    src={image3}
+                    alt="JM MOTORI 매장 전경"
+                    loading="lazy"
+                    className="h-40 w-full rounded-xl object-cover max-[760px]:h-[180px]"
+                  />
+                  <img
+                    src={image2}
+                    alt="JM MOTORI 정비 작업"
+                    loading="lazy"
+                    className="h-40 w-full rounded-xl object-cover max-[760px]:h-[180px]"
+                  />
                 </div>
                 <article className="rounded-[14px] border border-white/10 bg-[#15181b] p-5">
                   <div className="flex items-center justify-between gap-3">

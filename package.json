@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "sync:rss": "node scripts/build-rss-cache.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },

@@ -1,8 +1,11 @@
 ﻿import { useCallback, useEffect, useState } from "react";
 import { BLOG_URL, RSS_URL } from "../constants";
 
-const fallbackThumb = `${import.meta.env.BASE_URL}assets/images/3.jpg`;
-const REQUEST_TIMEOUT_MS = 10000;
+const baseUrl = import.meta.env.BASE_URL;
+const FEED_JSON_URL = `${baseUrl}data/blog-feed.json`;
+const fallbackThumb = `${baseUrl}assets/images/3.jpg`;
+const REQUEST_TIMEOUT_MS = 8000;
+const STORAGE_KEY = "jm_blog_feed_cache_v1";
 
 const proxyUrls = [
   `https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`,
@@ -13,6 +16,7 @@ function toSafeUrl(url, fallback) {
   if (!url) return fallback;
   if (url.startsWith("http://") || url.startsWith("https://")) return url;
   if (url.startsWith("//")) return `https:${url}`;
+  if (url.startsWith("/")) return url;
   return fallback;
 }
 
@@ -42,6 +46,45 @@ function toDateLabel(pubDateRaw) {
   });
 }
 
+function normalizePost(post, index = 0) {
+  const title = (post?.title || "제목 없음").trim();
+  const link = toSafeUrl(post?.link?.trim(), BLOG_URL);
+  const summaryRaw = (post?.summary || "").trim();
+  const pubDate = post?.pubDate || "";
+
+  return {
+    id: post?.id || `${link}-${index}`,
+    title,
+    link,
+    summary:
+      summaryRaw.length > 92
+        ? `${summaryRaw.slice(0, 92)}...`
+        : summaryRaw || "포스팅 미리보기가 준비되지 않았습니다.",
+    thumbnail: toSafeUrl(post?.thumbnail, fallbackThumb),
+    dateLabel: post?.dateLabel || toDateLabel(pubDate),
+  };
+}
+
+function readLocalCache() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed?.items || !Array.isArray(parsed.items)) return null;
+    return parsed.items.map((item, index) => normalizePost(item, index));
+  } catch {
+    return null;
+  }
+}
+
+function writeLocalCache(items) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ cachedAt: Date.now(), items }));
+  } catch {
+    // Ignore quota/privacy mode errors.
+  }
+}
+
 async function fetchWithTimeout(url) {
   const controller = new AbortController();
   const timeoutId = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
@@ -49,12 +92,26 @@ async function fetchWithTimeout(url) {
     return await fetch(url, {
       signal: controller.signal,
       headers: {
-        Accept: "application/xml,text/xml,application/json;q=0.9,*/*;q=0.8",
+        Accept: "application/json,application/xml,text/xml;q=0.9,*/*;q=0.8",
       },
     });
   } finally {
     window.clearTimeout(timeoutId);
   }
+}
+
+async function fetchFromStaticJson() {
+  const response = await fetchWithTimeout(FEED_JSON_URL);
+  if (!response.ok) {
+    throw new Error(`Static feed HTTP ${response.status}`);
+  }
+
+  const payload = await response.json();
+  if (!payload?.items || !Array.isArray(payload.items) || payload.items.length === 0) {
+    throw new Error("Static feed has no items");
+  }
+
+  return payload.items.map((item, index) => normalizePost(item, index));
 }
 
 async function fetchXmlWithFallback() {
@@ -94,6 +151,37 @@ async function fetchXmlWithFallback() {
   throw new Error(`RSS proxy fetch failed: ${errors.join(" | ")}`);
 }
 
+async function fetchFromRssProxy() {
+  const xmlText = await fetchXmlWithFallback();
+  const parser = new DOMParser();
+  const xml = parser.parseFromString(xmlText, "text/xml");
+  const items = Array.from(xml.querySelectorAll("item")).slice(0, 6);
+
+  if (!items.length) {
+    throw new Error("No RSS items");
+  }
+
+  return items.map((item, index) => {
+    const title = (item.querySelector("title")?.textContent || "제목 없음").trim();
+    const link = toSafeUrl(item.querySelector("link")?.textContent?.trim(), BLOG_URL);
+    const descriptionHtml = item.querySelector("description")?.textContent || "";
+    const summaryRaw = normalizeText(descriptionHtml);
+    const pubDate = item.querySelector("pubDate")?.textContent || "";
+
+    return {
+      id: `${link}-${index}`,
+      title,
+      link,
+      summary:
+        summaryRaw.length > 92
+          ? `${summaryRaw.slice(0, 92)}...`
+          : summaryRaw || "포스팅 미리보기가 준비되지 않았습니다.",
+      thumbnail: extractThumbnail(descriptionHtml),
+      dateLabel: toDateLabel(pubDate),
+    };
+  });
+}
+
 export function useRssPosts() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -108,44 +196,37 @@ export function useRssPosts() {
     let isMounted = true;
 
     async function fetchPosts() {
-      try {
+      setError(null);
+
+      const cached = readLocalCache();
+      if (cached?.length && isMounted) {
+        setPosts(cached);
+        setLoading(false);
+      } else {
         setLoading(true);
-        setError(null);
+      }
 
-        const xmlText = await fetchXmlWithFallback();
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(xmlText, "text/xml");
-        const items = Array.from(xml.querySelectorAll("item")).slice(0, 6);
-
-        if (!items.length) {
-          throw new Error("No RSS items");
-        }
-
-        const parsed = items.map((item, index) => {
-          const title = (item.querySelector("title")?.textContent || "제목 없음").trim();
-          const link = toSafeUrl(item.querySelector("link")?.textContent?.trim(), BLOG_URL);
-          const descriptionHtml = item.querySelector("description")?.textContent || "";
-          const summaryRaw = normalizeText(descriptionHtml);
-          const dateLabel = toDateLabel(item.querySelector("pubDate")?.textContent || "");
-
-          return {
-            id: `${link}-${index}`,
-            title,
-            link,
-            summary:
-              summaryRaw.length > 92
-                ? `${summaryRaw.slice(0, 92)}...`
-                : summaryRaw || "포스팅 미리보기가 준비되지 않았습니다.",
-            thumbnail: extractThumbnail(descriptionHtml),
-            dateLabel,
-          };
-        });
-
+      try {
+        const staticItems = await fetchFromStaticJson();
         if (!isMounted) return;
-        setPosts(parsed);
+        setPosts(staticItems);
+        writeLocalCache(staticItems);
+        setLoading(false);
+        return;
+      } catch {
+        // Fallback to live RSS proxy if static cache load fails.
+      }
+
+      try {
+        const liveItems = await fetchFromRssProxy();
+        if (!isMounted) return;
+        setPosts(liveItems);
+        writeLocalCache(liveItems);
       } catch (fetchError) {
         if (!isMounted) return;
-        setError(fetchError);
+        if (!cached?.length) {
+          setError(fetchError);
+        }
       } finally {
         if (isMounted) {
           setLoading(false);
