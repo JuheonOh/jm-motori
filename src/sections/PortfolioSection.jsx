@@ -7,10 +7,10 @@ export default function PortfolioSection({ containerClass }) {
       <div className={containerClass}>
         <div className="mb-6 flex items-end justify-between gap-5 max-[760px]:flex-col max-[760px]:items-start">
           <div>
-            <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.2em] text-[#ffc107]">Live Portfolio</p>
+            <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.2em] text-[#ffc107]">최근 정비 사례</p>
             <h2 className="m-0 text-[clamp(1.7rem,4.8vw,2.3rem)] font-black">네이버 블로그 최신 정비 사례</h2>
             <p className="mt-3 text-[0.95rem] text-slate-400">
-              ablymotors RSS를 실시간 파싱해 최신 포스팅을 카드로 자동 노출합니다.
+              네이버 블로그 최신 정비 사례를 빠르게 모아 보여드립니다.
             </p>
           </div>
           <a

@@ -16,8 +16,8 @@ export default function HeroSection({ containerClass, backgroundImageUrl }) {
           <span className="text-[#ffc107]">정직하고 정확한 정비</span>
         </h1>
         <p className="mt-6 max-w-180 leading-[1.7] text-slate-200">
-          실제 매장 환경과 네이버 블로그의 최신 정비 사례를 실시간으로 연결해, 방문 전에도 정비 퀄리티를 확인할 수
-          있도록 구성한 JM MOTORI 공식 SPA입니다.
+          실제 매장 환경과 네이버 블로그의 최신 정비 사례를 한눈에 확인할 수 있도록 구성한 JM MOTORI 공식 정비 안내
+          페이지입니다.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <a

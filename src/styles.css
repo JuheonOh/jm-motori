@@ -1,10 +1,21 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
+
+:root {
+  --anchor-offset: 3rem;
+}
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--anchor-offset);
 }
 
 body {
   margin: 0;
   font-family: "Noto Sans KR", sans-serif;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --anchor-offset: 2.5rem;
+  }
 }

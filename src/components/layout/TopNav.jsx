@@ -6,7 +6,7 @@ export default function TopNav({ containerClass }) {
       <div className={`${containerClass} flex min-h-20 items-center justify-between`}>
         <a href="#home">
           <p className="m-0 text-[1.8rem] font-extrabold uppercase tracking-[0.08em] text-white">
-            <span className="text-[#ffc107]">JM</span>MOTORI
+            <span className="text-[#ffc107]">JM</span>모토리
           </p>
           <p className="m-0 text-[0.62rem] font-bold uppercase tracking-[0.28em] text-slate-400">
             BMW & MINI Specialist

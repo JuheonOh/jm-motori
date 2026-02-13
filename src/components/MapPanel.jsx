@@ -171,13 +171,13 @@ export default function MapPanel() {
         ? "border-amber-300/40 bg-amber-500/15 text-amber-200"
         : "border-slate-300/30 bg-slate-500/15 text-slate-200";
   const modeDotClass = mapMode === "naver" ? "bg-emerald-300" : mapMode === "loading" ? "bg-amber-200" : "bg-slate-200";
-  const modeLabel = mapMode === "naver" ? "Naver API 연결" : mapMode === "loading" ? "지도 로딩 중" : "임베드 지도";
+  const modeLabel = mapMode === "naver" ? "네이버 지도 연결" : mapMode === "loading" ? "지도 불러오는 중" : "기본 지도 안내";
 
   return (
     <div className="overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(180deg,#171a1f_0%,#111317_100%)] shadow-[0_22px_52px_rgba(0,0,0,0.35)]">
       <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
         <div>
-          <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[#ffc107]">Map Preview</p>
+          <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[#ffc107]">위치 안내</p>
           <p className="mt-1 text-sm font-extrabold text-white">JM MOTORI 위치</p>
         </div>
         <span
