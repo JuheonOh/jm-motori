@@ -1,7 +1,7 @@
-# JM MOTORI SPA 프로젝트 통합 명세서 (v1.9)
+# JM MOTORI SPA 프로젝트 통합 명세서 (v1.10)
 
-문서 버전: v1.9  
-최종 수정일: 2026-02-13  
+문서 버전: v1.10
+최종 수정일: 2026-04-28
 대상 저장소: `jm-motori`
 
 ## 1. 개요 (Overview)
@@ -117,6 +117,7 @@
 4. Language: JavaScript (ES Modules)
 5. 배포: GitHub Pages + GitHub Actions
 6. 데이터: 네이버 RSS + 정적 JSON 캐시 + 브라우저 로컬 캐시
+7. 운영 도메인: `https://jm-motori.co.kr/`
 
 ### 3.2 구현 세부사항
 
@@ -140,7 +141,60 @@
    - `useBusinessStatus`에서 KST 기준 현재 영업 상태 계산
    - 1분 간격 갱신
 
-### 3.3 코딩 스타일 가이드
+### 3.3 배포 및 도메인 명세
+
+1. GitHub Pages 배포
+   - 배포 대상 브랜치: `main`
+   - 배포 산출물: Vite `dist/`
+   - 배포 workflow: `.github/workflows/deploy-pages.yml`
+   - 커스텀 도메인 유지 파일: `public/CNAME`
+
+2. 커스텀 도메인 기준
+   - 운영 도메인은 `https://jm-motori.co.kr/`을 기준으로 한다.
+   - Vite `base`는 루트 경로(`/`)를 사용한다.
+   - 빌드된 JS/CSS는 `/assets/...` 경로로 로드되어야 한다.
+   - `index.html` canonical, Open Graph URL/image, JSON-LD `url/image`는 `https://jm-motori.co.kr/` 기준이어야 한다.
+   - `public/robots.txt`와 `public/sitemap.xml`도 `https://jm-motori.co.kr/` 기준이어야 한다.
+
+3. 네이버 지도 운영 조건
+   - `VITE_NAVER_MAP_CLIENT_ID`는 GitHub Actions repository variable로 주입한다.
+   - NCP Maps API Web 서비스 URL에는 운영 도메인 `https://jm-motori.co.kr`을 등록해야 한다.
+   - HTTP 유입도 GitHub Pages에서 HTTPS로 redirect되므로 필요 시 `http://jm-motori.co.kr`도 허용 도메인에 포함한다.
+   - `www.jm-motori.co.kr`은 운영 기준 도메인이 아니며, 별도 사용 시 DNS/SSL 및 NCP 허용 도메인을 별도로 맞춰야 한다.
+
+### 3.4 RSS 캐시 갱신 및 배포 최적화 명세
+
+1. RSS 캐시 생성
+   - 실행 명령: `npm run sync:rss`
+   - 실행 파일: `scripts/build-rss-cache.mjs`
+   - 입력 소스: `https://rss.blog.naver.com/ablymotors.xml`
+   - 출력 파일: `public/data/blog-feed.json`
+   - 최대 저장 건수: 최신 12건
+   - 저장 필드: `source`, `generatedAt`, `itemCount`, `items`
+
+2. RSS fetch fallback
+   - 1차: 네이버 RSS 직접 요청
+   - 2차: AllOrigins raw proxy
+   - 3차: AllOrigins get proxy
+   - RSS fetch가 실패해도 기존 `public/data/blog-feed.json`이 있으면 기존 캐시를 유지한다.
+   - 기존 캐시도 없으면 스크립트는 실패해야 한다.
+
+3. 변경 감지 기준
+   - schedule 실행 시 새 RSS 결과와 현재 배포본 `https://jm-motori.co.kr/data/blog-feed.json`을 비교한다.
+   - 비교 대상 필드는 `source`, `itemCount`, `items`이다.
+   - `generatedAt`은 실행 시점마다 달라지는 값이므로 비교에서 제외한다.
+   - 글 추가, 삭제, 제목/링크/날짜/요약/썸네일 변경은 변경으로 판단한다.
+   - 배포본 비교 URL 조회에 실패하면 보수적으로 변경 있음으로 판단해 배포를 진행한다.
+
+4. GitHub Actions 배포 조건
+   - schedule cron: `7,22,37,52 * * * *`
+   - schedule은 15분마다 RSS 변경만 감지한다.
+   - schedule 실행에서 `rss_changed=false`이면 `npm ci`, `npm run build`, Pages artifact upload, Pages deploy를 모두 건너뛴다.
+   - schedule 실행에서 `rss_changed=true`이면 build와 Pages deploy를 진행한다.
+   - `push`와 `workflow_dispatch`는 RSS 변경 여부와 무관하게 항상 deploy를 진행한다.
+   - 스크립트는 GitHub Actions step output으로 `rss_changed=true|false`를 기록해야 한다.
+
+### 3.5 코딩 스타일 가이드
 
 1. 컴포넌트 파일명: PascalCase (`HeroSection.jsx`)
 2. 훅 파일명: camelCase + `use` prefix (`useRssPosts.js`)
@@ -154,7 +208,7 @@
    - Tailwind 유틸리티 우선
    - 전역 최소 스타일만 `src/styles.css` 유지
 
-### 3.4 권장 폴더 구조
+### 3.6 권장 폴더 구조
 
 ```text
 src/
@@ -217,6 +271,7 @@ src/
 
 - GitHub Actions 스케줄(15분)로 RSS 변경 감지
 - RSS 변경이 있을 때만 Pages 재배포
+- schedule에서 RSS 변경이 없으면 Pages deployment를 생성하지 않는다.
 
 권장 목표(운영 기준):
 

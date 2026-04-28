@@ -3,7 +3,7 @@
 BMW/MINI 전문 정비소 JM MOTORI의 공식 랜딩 SPA 프로젝트입니다.  
 실제 매장 정보와 네이버 블로그 정비 사례를 연결해 신뢰도와 방문 전환을 높이는 것이 목표입니다.
 
-상세 명세서는 `docs/JM_MOTORI_SPA_SPEC_v1.9.md`를 참고하세요.
+상세 명세서는 `docs/JM_MOTORI_SPA_SPEC_v1.10.md`를 참고하세요.
 
 ## 1. 프로젝트 핵심
 
