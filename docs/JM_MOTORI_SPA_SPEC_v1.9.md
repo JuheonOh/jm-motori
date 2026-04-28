@@ -215,7 +215,8 @@ src/
 
 1. 운영 자동화:
 
-- GitHub Actions 스케줄(30분)로 캐시 최신화
+- GitHub Actions 스케줄(15분)로 RSS 변경 감지
+- RSS 변경이 있을 때만 Pages 재배포
 
 권장 목표(운영 기준):
 

@@ -75,7 +75,8 @@ src/
 ## 8. 배포/운영
 
 1. `main` push 시 GitHub Actions로 Pages 배포
-2. 30분 주기 스케줄로 RSS 캐시 자동 동기화
+2. 15분 주기 스케줄로 RSS 변경 감지
+3. RSS 변경이 있을 때만 Pages 재배포
 
 ## 9. 다음 개선 후보
 

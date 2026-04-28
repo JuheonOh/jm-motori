@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { appendFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -8,6 +8,7 @@ const OUTPUT_RELATIVE_PATH = path.join("public", "data", "blog-feed.json");
 const MAX_ITEMS = 12;
 const THUMB_PROXY_BASE = "https://wsrv.nl/?url=";
 const THUMB_PROXY_PARAMS = "&w=960&h=600&fit=cover&output=webp&q=80";
+const COMPARE_URL = process.env.RSS_CACHE_COMPARE_URL || "";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, "..");
@@ -113,6 +114,30 @@ function parsePosts(xmlText, fallbackThumb) {
   return items;
 }
 
+function toComparableFeed(payload) {
+  const items = Array.isArray(payload?.items) ? payload.items : [];
+
+  return JSON.stringify({
+    source: payload?.source || RSS_URL,
+    itemCount: items.length,
+    items: items.map((item) => ({
+      id: item?.id || "",
+      title: item?.title || "",
+      link: item?.link || "",
+      pubDate: item?.pubDate || "",
+      dateLabel: item?.dateLabel || "",
+      summary: item?.summary || "",
+      thumbnail: item?.thumbnail || "",
+    })),
+  });
+}
+
+async function writeGitHubOutput(name, value) {
+  const outputPath = process.env.GITHUB_OUTPUT;
+  if (!outputPath) return;
+  await appendFile(outputPath, `${name}=${value}\n`, "utf8");
+}
+
 async function fetchWithTimeout(url) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
@@ -166,6 +191,31 @@ async function fetchXmlWithFallback() {
   throw new Error(errors.join(" | "));
 }
 
+async function fetchPublishedPayload() {
+  if (!COMPARE_URL) return null;
+
+  const response = await fetchWithTimeout(COMPARE_URL);
+  if (!response.ok) {
+    throw new Error(`compare cache HTTP ${response.status}`);
+  }
+
+  return await response.json();
+}
+
+async function detectFeedChanged(payload) {
+  if (!COMPARE_URL) {
+    return { changed: true, reason: "compare URL not configured" };
+  }
+
+  try {
+    const publishedPayload = await fetchPublishedPayload();
+    const changed = toComparableFeed(payload) !== toComparableFeed(publishedPayload);
+    return { changed, reason: changed ? "RSS cache differs from published cache" : "RSS cache unchanged" };
+  } catch (error) {
+    return { changed: true, reason: error?.message || "published cache compare failed" };
+  }
+}
+
 async function run() {
   // Keep this project-relative so runtime can resolve BASE_URL correctly.
   const fallbackThumb = "assets/images/3.jpg";
@@ -184,16 +234,20 @@ async function run() {
       itemCount: items.length,
       items,
     };
+    const { changed, reason } = await detectFeedChanged(payload);
 
     await mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
     await writeFile(OUTPUT_PATH, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
     console.log(`[rss-cache] updated ${OUTPUT_RELATIVE_PATH} (${items.length} items)`);
+    console.log(`[rss-cache] ${reason}`);
+    await writeGitHubOutput("rss_changed", changed ? "true" : "false");
     return;
   } catch (error) {
     try {
       // Preserve build stability by keeping the last known good cache.
       await readFile(OUTPUT_PATH, "utf8");
       console.warn(`[rss-cache] fetch failed, keeping existing cache: ${error.message}`);
+      await writeGitHubOutput("rss_changed", "false");
       return;
     } catch {
       throw new Error(`[rss-cache] fetch failed and no existing cache: ${error.message}`);
