@@ -1,10 +1,9 @@
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 
-export default defineConfig(({ command }) => ({
+export default defineConfig({
   plugins: [tailwindcss()],
-  // Use root base during local dev to avoid API referrer/auth mismatches.
-  base: command === "serve" ? "/" : "/jm-motori/",
+  base: "/",
   server: {
     host: "localhost",
     port: 5173,
@@ -13,4 +12,4 @@ export default defineConfig(({ command }) => ({
   esbuild: {
     jsx: "automatic",
   },
-}));
+});
