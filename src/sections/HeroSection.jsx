@@ -3,7 +3,7 @@ import { STORE } from "../constants";
 export default function HeroSection({ containerClass, backgroundImageUrl }) {
   return (
     <header
-      className="relative min-h-screen bg-cover bg-center"
+      className="relative min-h-screen bg-cover bg-[position:center_44%] max-[760px]:bg-[position:58%_44%]"
       style={{ backgroundImage: `url(${backgroundImageUrl})` }}
     >
       <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(0,0,0,0.86)_20%,rgba(0,0,0,0.45)_55%,rgba(0,0,0,0.72)_100%)]" />
