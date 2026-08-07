@@ -26,7 +26,13 @@ export default function TopNav({ containerClass }) {
         </a> */}
 
         <a href="#home" onClick={closeMobileMenu}>
-          <img src={`${import.meta.env.BASE_URL}assets/brand/logo.png`} alt="JM모토리 로고" className="h-10 w-auto" />
+          <img
+            src={`${import.meta.env.BASE_URL}assets/brand/logo.png`}
+            alt="JM모토리 로고"
+            width="160"
+            height="40"
+            className="h-10 w-auto"
+          />
         </a>
 
         <div className="hidden items-center gap-6 text-[0.95rem] font-semibold text-slate-300 min-[761px]:flex">
