@@ -1,0 +1,18 @@
+/* v1's full-width photograph, with v3's factual copy and contact actions. */
+.hero { min-height: 100svh; margin-top: 0; background-size: cover; background-position: center 48%; align-items: center; }
+.hero-shade { inset: 0; width: auto; background: linear-gradient(105deg,rgba(0,0,0,.86) 20%,rgba(0,0,0,.45) 55%,rgba(0,0,0,.72) 100%); }
+.hero-content { width: 100%; max-width: 852px; padding-top: 112px; padding-bottom: 48px; }
+.case-link { border: 1px solid #171b1c26; border-radius: 6px; overflow: hidden; background: #faf9f5; }
+.case-link:is(:hover, :focus-visible) { border-color: #777d75; }
+.case-photo { aspect-ratio: 16/9; }
+.case-photo img { object-fit: cover; object-position: center 40%; }
+.case-body { padding: 20px; }
+.case-summary { margin: 12px 0 20px; color: #626963; font-size: .9rem; line-height: 1.75; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+.case-footer { margin-top: auto; }
+@media (min-width: 761px) and (max-width: 980px) {
+  .hero-content { padding-inline: 32px; }
+}
+@media (max-width: 760px) {
+  .hero { background-position: 58% 44%; }
+  .hero-content { padding: 120px 20px 48px; }
+}

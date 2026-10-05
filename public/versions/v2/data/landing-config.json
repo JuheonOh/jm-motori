@@ -1,0 +1,10 @@
+{
+  "specialty": "광주 MINI 전문 정비",
+  "featured": [
+    {"id": "224418635792", "title": "엔진경고등 점등", "work": "DPF · EGR 쿨러 크리닝"},
+    {"id": "224412185380", "title": "핸들 · 차체 진동", "work": "엔진마운트 · 미션마운트 교체"},
+    {"id": "224391965370", "title": "냉각수 · 엔진과열 경고", "work": "써모스탯 · 오일필터 하우징 정비"}
+  ],
+  "defaultBrand": "MINI",
+  "archivePageSize": 6
+}

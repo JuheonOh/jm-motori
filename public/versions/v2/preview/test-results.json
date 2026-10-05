@@ -1,0 +1,86 @@
+{
+  "viewports": [
+    {
+      "width": 320,
+      "overflow": false,
+      "documentWidth": 320
+    },
+    {
+      "width": 360,
+      "overflow": false,
+      "documentWidth": 360
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "documentWidth": 390
+    },
+    {
+      "width": 430,
+      "overflow": false,
+      "documentWidth": 430
+    },
+    {
+      "width": 680,
+      "overflow": false,
+      "documentWidth": 680
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "documentWidth": 768
+    },
+    {
+      "width": 1024,
+      "overflow": false,
+      "documentWidth": 1024
+    },
+    {
+      "width": 1280,
+      "overflow": false,
+      "documentWidth": 1280
+    },
+    {
+      "width": 1440,
+      "overflow": false,
+      "documentWidth": 1440
+    },
+    {
+      "width": 1920,
+      "overflow": false,
+      "documentWidth": 1920
+    }
+  ],
+  "checks": {
+    "featured_count_3": true,
+    "featured_mini_only": true,
+    "archive_initially_closed": true,
+    "main_headline": "좋아하는 미니를,\n오래 탈 수 있도록.",
+    "record_modal_opens": true,
+    "modal_has_original_excerpt": true,
+    "modal_has_call_link": true,
+    "escape_closes_modal": true,
+    "focus_restored": true,
+    "service_opens_archive": true,
+    "service_keeps_mini_filter": true,
+    "service_selects_symptom": true,
+    "service_result_count": "10개의 기록",
+    "empty_state": true,
+    "reset_to_33_mini": true,
+    "bmw_7": true,
+    "bmw_only_cards": true,
+    "all_50": true,
+    "search_nonempty": true,
+    "list_view": true,
+    "load_more_12": true,
+    "source_modal": true,
+    "address_feedback": true,
+    "mobile_bar_visible": true,
+    "mobile_menu_opens": true,
+    "mobile_menu_closes": true,
+    "image_success_state": true,
+    "special_char_search_safe": true
+  },
+  "errors": [],
+  "network": "External requests blocked to test the explicit offline/fallback state."
+}
