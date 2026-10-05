@@ -7,7 +7,7 @@ const fallbackThumb = `${baseUrl}assets/images/3.jpg`;
 const REQUEST_TIMEOUT_MS = 8000;
 const STORAGE_KEY = "jm_blog_feed_cache_v1";
 const THUMB_PROXY_BASE = "https://wsrv.nl/?url=";
-const THUMB_PROXY_PARAMS = "&w=960&h=600&fit=cover&output=webp&q=80";
+const THUMB_PROXY_PARAMS = "&w=960&h=720&fit=contain&output=webp&q=80";
 
 const proxyUrls = [
   `https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`,
@@ -26,7 +26,14 @@ function toThumbnailProxyUrl(url, fallback = fallbackThumb) {
   const safeUrl = toSafeUrl(url, fallback);
   if (!safeUrl || safeUrl === fallback) return fallback;
   if (safeUrl.startsWith("/")) return safeUrl;
-  if (safeUrl.includes("wsrv.nl/?url=")) return safeUrl;
+  let parsed;
+  try { parsed = new URL(safeUrl); } catch { return fallback; }
+  if (parsed.hostname === "wsrv.nl" && parsed.pathname === "/" && parsed.searchParams.has("url")) {
+    parsed.searchParams.set("fit", "contain");
+    parsed.searchParams.set("w", "960");
+    parsed.searchParams.set("h", "720");
+    return parsed.href;
+  }
 
   const protocolLessUrl = safeUrl.replace(/^https?:\/\//i, "");
   return `${THUMB_PROXY_BASE}${encodeURIComponent(protocolLessUrl)}${THUMB_PROXY_PARAMS}`;

@@ -7,7 +7,7 @@ const REQUEST_TIMEOUT_MS = 12000;
 const OUTPUT_RELATIVE_PATH = path.join("public", "data", "blog-feed.json");
 const MAX_ITEMS = 12;
 const THUMB_PROXY_BASE = "https://wsrv.nl/?url=";
-const THUMB_PROXY_PARAMS = "&w=960&h=600&fit=cover&output=webp&q=80";
+const THUMB_PROXY_PARAMS = "&w=960&h=720&fit=contain&output=webp&q=80";
 const COMPARE_URL = process.env.RSS_CACHE_COMPARE_URL || "";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -21,30 +21,30 @@ const proxyUrls = [
 ];
 
 function decodeHtmlEntities(input) {
-  return input
-    .replaceAll("&lt;", "<")
-    .replaceAll("&gt;", ">")
-    .replaceAll("&amp;", "&")
-    .replaceAll("&quot;", '"')
-    .replaceAll("&#39;", "'");
-}
-
-function cleanCdata(input) {
-  if (!input) return "";
-  const trimmed = input.trim();
-  const cdataMatch = trimmed.match(/^<!\[CDATA\[([\s\S]*)\]\]>$/i);
-  return cdataMatch ? cdataMatch[1] : trimmed;
+  const named = { lt: "<", gt: ">", amp: "&", quot: '"', apos: "'" };
+  return input.replace(/&(#x[0-9a-f]+|#[0-9]+|lt|gt|amp|quot|apos);/gi, (entity, code) => {
+    if (!code.startsWith("#")) return named[code] ?? entity;
+    const point = code[1].toLowerCase() === "x"
+      ? Number.parseInt(code.slice(2), 16)
+      : Number.parseInt(code.slice(1), 10);
+    return point > 0 && point <= 0x10ffff && !(point >= 0xd800 && point <= 0xdfff)
+      ? String.fromCodePoint(point)
+      : entity;
+  });
 }
 
 function extractTag(block, tagName) {
   const regex = new RegExp(`<${tagName}[^>]*>([\\s\\S]*?)<\\/${tagName}>`, "i");
   const match = block.match(regex);
   if (!match) return "";
-  return decodeHtmlEntities(cleanCdata(match[1]));
+  // CDATA is literal XML text; decode only the surrounding XML segments once.
+  return match[1].split(/(<!\[CDATA\[[\s\S]*?\]\]>)/g)
+    .map((part) => part.startsWith("<![CDATA[") ? part.slice(9, -3) : decodeHtmlEntities(part))
+    .join("");
 }
 
 function normalizeText(htmlText) {
-  return htmlText.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  return decodeHtmlEntities(htmlText.replace(/<[^>]*>/g, " ")).replace(/\s+/g, " ").trim();
 }
 
 function toDateLabel(pubDateRaw) {
@@ -78,7 +78,7 @@ function toThumbnailProxyUrl(url, fallback = "") {
 function extractThumbnail(descriptionHtml, fallbackThumb) {
   const match = descriptionHtml.match(/<img[^>]+src=["']([^"']+)["']/i);
   if (!match) return fallbackThumb;
-  return toThumbnailProxyUrl(match[1], fallbackThumb);
+  return toThumbnailProxyUrl(decodeHtmlEntities(match[1]), fallbackThumb);
 }
 
 function parsePosts(xmlText, fallbackThumb) {
@@ -220,42 +220,45 @@ async function run() {
   // Keep this project-relative so runtime can resolve BASE_URL correctly.
   const fallbackThumb = "assets/images/3.jpg";
 
+  let items;
   try {
     const xmlText = await fetchXmlWithFallback();
-    const items = parsePosts(xmlText, fallbackThumb);
-
-    if (!items.length) {
-      throw new Error("RSS parsing produced zero items");
-    }
-
-    const payload = {
-      source: RSS_URL,
-      generatedAt: new Date().toISOString(),
-      itemCount: items.length,
-      items,
-    };
-    const { changed, reason } = await detectFeedChanged(payload);
-
-    await mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
-    await writeFile(OUTPUT_PATH, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
-    console.log(`[rss-cache] updated ${OUTPUT_RELATIVE_PATH} (${items.length} items)`);
-    console.log(`[rss-cache] ${reason}`);
-    await writeGitHubOutput("rss_changed", changed ? "true" : "false");
-    return;
+    items = parsePosts(xmlText, fallbackThumb);
+    if (!items.length) throw new Error("RSS parsing produced zero items");
   } catch (error) {
     try {
-      // Preserve build stability by keeping the last known good cache.
-      await readFile(OUTPUT_PATH, "utf8");
-      console.warn(`[rss-cache] fetch failed, keeping existing cache: ${error.message}`);
-      await writeGitHubOutput("rss_changed", "false");
-      return;
-    } catch {
-      throw new Error(`[rss-cache] fetch failed and no existing cache: ${error.message}`);
+      // Only a usable previous feed can safely replace an unavailable upstream.
+      const cached = JSON.parse(await readFile(OUTPUT_PATH, "utf8"));
+      if (!Array.isArray(cached.items) || !cached.items.length || !cached.items.every((item) => {
+        if (typeof item?.title !== "string" || !item.title.trim() || typeof item.link !== "string") return false;
+        try { return ["http:", "https:"].includes(new URL(item.link).protocol); }
+        catch { return false; }
+      })) throw new Error("cache has no usable items");
+    } catch (cacheError) {
+      throw new Error(`[rss-cache] fetch failed: ${error.message}; no usable cache: ${cacheError.message}`);
     }
+    console.warn(`[rss-cache] fetch failed, keeping existing cache: ${error.message}`);
+    await writeGitHubOutput("rss_changed", "false");
+    return;
   }
+
+  const payload = {
+    source: RSS_URL,
+    generatedAt: new Date().toISOString(),
+    itemCount: items.length,
+    items,
+  };
+  const { changed, reason } = await detectFeedChanged(payload);
+
+  // Publishing failures must fail CI, not masquerade as upstream outages.
+  await mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
+  await writeFile(OUTPUT_PATH, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+  console.log(`[rss-cache] updated ${OUTPUT_RELATIVE_PATH} (${items.length} items)`);
+  console.log(`[rss-cache] ${reason}`);
+  await writeGitHubOutput("rss_changed", changed ? "true" : "false");
 }
 
 run().catch((error) => {
   console.error(error.message);
-  process.exit(1);
+  process.exitCode = 1;
 });
