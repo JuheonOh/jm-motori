@@ -2,37 +2,25 @@ import { STORE } from "../constants";
 
 export default function HeroSection({ containerClass, backgroundImageUrl }) {
   return (
-    <header
-      className="relative min-h-screen bg-cover bg-position-[center_48%] max-[760px]:bg-position-[58%_44%]"
-      style={{ backgroundImage: `url(${backgroundImageUrl})` }}
-    >
-      <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(0,0,0,0.86)_20%,rgba(0,0,0,0.45)_55%,rgba(0,0,0,0.72)_100%)]" />
-      <div className={`${containerClass} relative z-1 flex min-h-screen max-w-212.5 flex-col justify-center pt-28`}>
-        <p className="mb-5 w-fit rounded-full border border-[#ffc107]/40 bg-[#ffc107]/15 px-3 py-2 text-[0.72rem] font-bold tracking-[0.18em] text-[#ffc107]">
-          GWANGJU BMW·MINI WORKSHOP
-        </p>
-        <h1 className="m-0 text-[clamp(2.05rem,6.4vw,4.35rem)] font-black leading-[1.1]">
-          BMW·미니쿠퍼 전문 <br /> <span className="text-[#ffc107]">정직하고 정확한 정비</span>
-        </h1>
-        <p className="mt-6 max-w-180 leading-[1.7] text-slate-200">
-          실제 매장 환경과 네이버 블로그의 최신 정비 사례를 한눈에 확인할 수 있도록 구성한 JM MOTORI 공식 정비 안내
-          페이지입니다.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <a
-            href={`tel:${STORE.phone}`}
-            className="inline-flex items-center justify-center rounded-[10px] bg-[#ffc107] px-6 py-4 text-[1.04rem] font-extrabold text-gray-900 shadow-[0_0_26px_rgba(255,193,7,0.25)] transition hover:brightness-95 max-[760px]:w-full"
-          >
-            {STORE.phone} 바로 전화
-          </a>
-          <a
-            href="#portfolio"
-            className="inline-flex items-center justify-center rounded-[10px] border border-white/20 bg-white/5 px-6 py-4 text-[1.04rem] font-extrabold text-white transition hover:border-[#ffc107]/60 hover:text-[#ffc107] max-[760px]:w-full"
-          >
-            최신 정비 사례 보기
-          </a>
+    <header className="hero">
+      <div className={`${containerClass} hero-layout`}>
+        <div className="hero-content">
+          <p className="eyebrow"><span /> 광주 광산구 우산동 · 자동차 정비소</p>
+          <h1 className="hero-title">당신의 차와<br />오래, 함께.<br /><span>JM모토리</span></h1>
+          <p className="hero-description">일상의 오일 교환부터 경고등, 진동, 누유 점검까지.<br />광주 우산동에서 만나는 자동차 정비소입니다.</p>
+          <div className="hero-actions">
+            <a href={`tel:${STORE.phone}`} className="button-primary">전화 상담 <span aria-hidden="true">↗</span></a>
+            <a href="#portfolio" className="text-link">정비 사례 둘러보기 <span aria-hidden="true">→</span></a>
+          </div>
+          <div className="hero-note"><span>방문 전 문의</span><strong>{STORE.phone}</strong></div>
         </div>
+        <figure className="hero-photo">
+          <img src={backgroundImageUrl} alt="JM모토리 간판과 작업장 앞에 주차된 MINI 차량들" fetchPriority="high" width="1448" height="1086" />
+          <figcaption><span>JM MOTORI · GWANGJU</span><span>우리의 정비 공간 <span aria-hidden="true">↗</span></span></figcaption>
+          <a href="#contact" className="photo-label">광주 우산동에서<br /><strong>만나요 <span aria-hidden="true">↘</span></strong></a>
+        </figure>
       </div>
+      <div className="hero-strip"><div className={containerClass}><span>자동차를 돌보는 일, <strong>JM모토리의 일.</strong></span><a href="#services">정비 서비스 알아보기 <span aria-hidden="true">↓</span></a></div></div>
     </header>
   );
 }

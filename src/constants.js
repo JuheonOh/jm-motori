@@ -17,20 +17,20 @@ export const NAV_LINKS = [
 
 export const SERVICES = [
   {
-    title: "경정비·소모품",
-    description: "엔진오일, 브레이크 오일, 냉각수, 점화계통 등 주기 관리 중심 정비",
+    title: "오일·소모품 교환",
+    description: "엔진오일 · 미션오일 · 냉각수 · 점화플러그",
   },
   {
-    title: "미션·엔진 진단",
-    description: "전용 진단 장비 기반의 오류 코드 분석과 정밀 점검 리포트 제공",
+    title: "경고등·엔진 점검",
+    description: "엔진 경고등 · 누유 · 냉각계통 · 디젤 흡기·배기",
   },
   {
-    title: "하체·브레이크",
-    description: "하체 소음, 제동 성능 저하, 얼라인먼트 이슈를 차량 상태에 맞춰 정비",
+    title: "진동·하체 정비",
+    description: "엔진·미션 마운트 · 하체 소음 · 서스펜션",
   },
   {
-    title: "전기·전자 수리",
-    description: "센서, 배터리, 경고등 점등 원인 추적 및 부품 교체/세팅 대응",
+    title: "브레이크·타이어",
+    description: "브레이크 패드·디스크 · 브레이크 오일 · 타이어",
   },
 ];
 

@@ -7,29 +7,23 @@ import PortfolioSection from "./sections/PortfolioSection";
 import ServicesSection from "./sections/ServicesSection";
 
 const baseUrl = import.meta.env.BASE_URL;
-const image1 = `${baseUrl}assets/images/1.jpg`;
-const image2 = `${baseUrl}assets/images/2.jpg`;
-const image3 = `${baseUrl}assets/images/3.jpg`;
-const image5 = `${baseUrl}assets/images/5.jpg`;
-const image6 = `${baseUrl}assets/images/6.jpg`;
-const containerClass = "mx-auto w-[min(1120px,calc(100%-2rem))] max-[760px]:w-[min(1120px,calc(100%-1.2rem))]";
+const image6 = `${baseUrl}assets/images/hero.webp`;
+const containerClass = "site-container";
 
 export default function App() {
   const businessStatus = useBusinessStatus();
 
   return (
     <>
+      <a href="#home" className="skip-link">본문 바로가기</a>
       <TopNav containerClass={containerClass} />
 
-      <main id="home" className="bg-[#212529] text-slate-50">
+      <main id="home" tabIndex={-1} className="site-main">
         <HeroSection containerClass={containerClass} backgroundImageUrl={image6} />
         <ServicesSection containerClass={containerClass} />
         <PortfolioSection containerClass={containerClass} />
         <ContactSection
           containerClass={containerClass}
-          image1={image1}
-          image2={image2}
-          image3={image3}
           businessStatus={businessStatus}
         />
       </main>
