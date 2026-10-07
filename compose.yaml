@@ -1,0 +1,23 @@
+services:
+  web:
+    build:
+      context: .
+      target: production
+      args:
+        VITE_NAVER_MAP_CLIENT_ID: ${VITE_NAVER_MAP_CLIENT_ID:-}
+    ports:
+      - "${PORT:-8080}:80"
+    restart: unless-stopped
+
+  dev:
+    profiles: [dev]
+    build:
+      context: .
+      target: dev
+    ports:
+      - "127.0.0.1:5173:5173"
+    environment:
+      VITE_NAVER_MAP_CLIENT_ID: ${VITE_NAVER_MAP_CLIENT_ID:-}
+    volumes:
+      - .:/app
+      - /app/node_modules

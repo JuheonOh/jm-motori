@@ -53,6 +53,47 @@ npm run dev
 npm run build
 ```
 
+### Docker로 실행 및 관리
+
+Docker Engine 또는 Docker Desktop과 Docker Compose v2가 필요합니다.
+아래 명령은 `compose.yaml`이 있는 프로젝트 디렉터리에서 실행합니다.
+
+```bash
+# 선택 사항: 네이버 지도 ID를 사용할 경우 .env를 복사하고 값을 설정
+cp .env.example .env
+
+# 운영용: Node에서 빌드한 정적 파일을 Nginx로 제공
+docker compose up -d --build
+# 접속: http://localhost:8080
+
+# 상태 / 로그 / 중지 및 컨테이너 제거
+docker compose ps
+docker compose logs -f web
+docker compose down
+```
+
+운영 포트 변경: `PORT=8081 docker compose up -d --build`.
+소스 또는 `VITE_NAVER_MAP_CLIENT_ID` 변경 후에는 같은 명령으로 다시 빌드합니다.
+Vite 환경 변수는 [빌드 시 정적 파일에 포함](https://vite.dev/guide/env-and-mode)되므로 공개 가능한 값만 사용합니다.
+`.env` 파일과 로컬 `node_modules`, 기존 `dist`는 이미지 빌드에서 제외합니다.
+
+```bash
+# 개발용: 소스 변경 즉시 반영, 시작할 때 잠금 파일 기준으로 의존성 설치
+docker compose up --build dev
+# 접속: http://localhost:5173 (종료: Ctrl+C)
+
+# 개발용 컨테이너까지 제거
+docker compose --profile dev down
+
+# RSS 캐시를 갱신하고 운영 이미지에 반영
+docker compose run --rm dev npm run sync:rss
+docker compose up -d --build web
+```
+
+개발용은 소스를 바인드 마운트하고 컨테이너 전용 `node_modules` 볼륨을 사용합니다.
+운영 이미지는 저장된 RSS 캐시를 사용하며, Docker에서 자동 RSS 갱신은 수행하지 않습니다.
+GitHub Pages의 기존 스케줄 배포는 그대로 동작합니다.
+
 ## 6. 환경 변수
 
 `VITE_NAVER_MAP_CLIENT_ID`를 설정하면 네이버 지도를 사용합니다.

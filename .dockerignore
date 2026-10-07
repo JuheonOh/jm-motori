@@ -1,0 +1,12 @@
+node_modules
+dist
+.git
+.github
+.gjc
+.omx
+.env
+.env.*
+!.env.example
+archive
+versions
+*.log

@@ -1,5 +1,8 @@
 node_modules/
 dist/
-.env.local
+.env
+.env.*
+!.env.example
 .vscode/
+.gjc/
 .DS_Store
