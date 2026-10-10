@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { NAVER_MAP_SEARCH_URL, STORE } from "../constants";
+import { resolveStoreLatLng } from "../utils/navigation";
 
 const NAVER_MAP_CLIENT_ID = (import.meta.env.VITE_NAVER_MAP_CLIENT_ID || "").trim();
 const NAVER_MAP_SCRIPT_ID = "naver-map-sdk";
 const NAVER_MAP_SCRIPT_SRC = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${NAVER_MAP_CLIENT_ID}&submodules=geocoder`;
-const GEOCODE_QUERIES = [STORE.jibunAddress, STORE.roadAddress, STORE.address];
 
 function renderFallback(container) {
   if (!container) return;
@@ -19,36 +19,6 @@ function renderFallback(container) {
       referrerpolicy="no-referrer-when-downgrade"
     ></iframe>
   `;
-}
-
-function extractLatLngFromGeocode(response) {
-  const first = response?.v2?.addresses?.[0];
-  const lat = Number(first?.y);
-  const lng = Number(first?.x);
-  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null;
-  return { lat, lng };
-}
-
-function geocodeQuery(service, query) {
-  return new Promise((resolve) => {
-    service.geocode({ query }, (status, response) => {
-      const okStatus = service.Status?.OK || "OK";
-      if (status !== okStatus) {
-        resolve(null);
-        return;
-      }
-      resolve(extractLatLngFromGeocode(response));
-    });
-  });
-}
-
-async function resolveStoreLatLng(service) {
-  for (const query of GEOCODE_QUERIES) {
-    if (!query) continue;
-    const resolved = await geocodeQuery(service, query);
-    if (resolved) return resolved;
-  }
-  return null;
 }
 
 function renderNaverMap(container) {
@@ -77,24 +47,20 @@ function renderNaverMap(container) {
 
 export default function MapPanel() {
   const mapRef = useRef(null);
-  const [mapMode, setMapMode] = useState("loading");
 
   useEffect(() => {
     const container = mapRef.current;
     if (!container) return undefined;
 
     if (!NAVER_MAP_CLIENT_ID) {
-      setMapMode("fallback");
       renderFallback(container);
       return undefined;
     }
 
     const handleLoad = () => {
       if (window.naver?.maps) {
-        setMapMode("naver");
         renderNaverMap(container);
       } else {
-        setMapMode("fallback");
         renderFallback(container);
       }
     };
@@ -103,7 +69,6 @@ export default function MapPanel() {
       if (targetScript) {
         targetScript.dataset.loadState = "error";
       }
-      setMapMode("fallback");
       renderFallback(container);
     };
 
@@ -115,13 +80,10 @@ export default function MapPanel() {
     const reusableScript = document.getElementById(NAVER_MAP_SCRIPT_ID);
     if (reusableScript) {
       if (window.naver?.maps) {
-        setMapMode("naver");
         renderNaverMap(container);
       } else if (reusableScript.dataset.loadState === "loaded" || reusableScript.dataset.loadState === "error") {
-        setMapMode("fallback");
         renderFallback(container);
       } else {
-        setMapMode("loading");
         const handleReusableError = () => {
           handleError(reusableScript);
         };
@@ -140,7 +102,6 @@ export default function MapPanel() {
     script.id = NAVER_MAP_SCRIPT_ID;
     script.async = true;
     script.src = NAVER_MAP_SCRIPT_SRC;
-    setMapMode("loading");
     const onScriptLoad = () => {
       script.dataset.loadState = "loaded";
       handleLoad();

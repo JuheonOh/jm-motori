@@ -24,8 +24,7 @@ function geocodeQuery(service, query) {
   });
 }
 
-async function resolveStoreLatLng() {
-  const service = window.naver?.maps?.Service;
+export async function resolveStoreLatLng(service = window.naver?.maps?.Service) {
   if (!service?.geocode) return null;
 
   for (const query of GEOCODE_QUERIES) {

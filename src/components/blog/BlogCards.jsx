@@ -40,7 +40,7 @@ export default function BlogCards() {
     setVisibleCount(initialVisiblePosts);
   }, [posts.length, initialVisiblePosts]);
 
-  if (loading) {
+  if (loading && posts.length === 0) {
     return (
       <div className="rounded-[14px] border border-white/10 bg-[#15181b] px-4 py-9 text-center text-slate-400">
         <p>최신 정비 사례를 불러오는 중입니다...</p>
@@ -48,7 +48,7 @@ export default function BlogCards() {
     );
   }
 
-  if (error) {
+  if (error && posts.length === 0) {
     return (
       <div className="rounded-[14px] border border-rose-400/35 bg-rose-500/10 px-4 py-9 text-center text-rose-200">
         <p>
@@ -74,6 +74,14 @@ export default function BlogCards() {
 
   return (
     <>
+      {error && (
+        <div role="status" className="mb-5 rounded-[14px] border border-amber-300/30 bg-amber-300/10 p-4 text-sm text-amber-100">
+          <p>이전에 불러온 정비 사례를 표시하고 있습니다. 최신 정보를 가져오지 못했습니다.</p>
+          <button type="button" className="mt-2 font-bold underline" onClick={refetch}>
+            다시 시도
+          </button>
+        </div>
+      )}
       <div className="grid grid-cols-3 gap-5 max-[980px]:grid-cols-2 max-[760px]:grid-cols-1">
         {visiblePosts.map((post) => (
           <article
@@ -90,7 +98,7 @@ export default function BlogCards() {
                   referrerPolicy="no-referrer"
                   onError={(event) => {
                     const img = event.currentTarget;
-                    if (img.src !== rssFallbackImage) {
+                    if (img.src !== new URL(rssFallbackImage, document.baseURI).href) {
                       img.src = rssFallbackImage;
                     }
                   }}

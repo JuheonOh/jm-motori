@@ -68,7 +68,6 @@ function toSafeUrl(url, fallback = "") {
 function toThumbnailProxyUrl(url, fallback = "") {
   const safeUrl = toSafeUrl(url, fallback);
   if (!safeUrl || safeUrl === fallback) return fallback;
-  if (safeUrl.startsWith("/")) return safeUrl;
   if (safeUrl.includes("wsrv.nl/?url=")) return safeUrl;
 
   const protocolLessUrl = safeUrl.replace(/^https?:\/\//i, "");
