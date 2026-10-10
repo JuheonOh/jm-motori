@@ -10,7 +10,6 @@ const baseUrl = import.meta.env.BASE_URL;
 const image1 = `${baseUrl}assets/images/1.jpg`;
 const image2 = `${baseUrl}assets/images/2.jpg`;
 const image3 = `${baseUrl}assets/images/3.jpg`;
-const image5 = `${baseUrl}assets/images/5.jpg`;
 const image6 = `${baseUrl}assets/images/6.jpg`;
 const containerClass = "mx-auto w-[min(1120px,calc(100%-2rem))] max-[760px]:w-[min(1120px,calc(100%-1.2rem))]";
 
