@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { NAVER_MAP_SEARCH_URL, STORE } from "../constants";
-import { resolveStoreLatLng } from "../utils/navigation";
 
 const NAVER_MAP_CLIENT_ID = (import.meta.env.VITE_NAVER_MAP_CLIENT_ID || "").trim();
 const NAVER_MAP_SCRIPT_ID = "naver-map-sdk";
@@ -22,26 +21,21 @@ function renderFallback(container) {
 }
 
 function renderNaverMap(container) {
-  const fallbackLocation = new window.naver.maps.LatLng(STORE.lat, STORE.lng);
+  const storeLocation = new window.naver.maps.LatLng(STORE.lat, STORE.lng);
   const map = new window.naver.maps.Map(container, {
-    center: fallbackLocation,
-    zoom: 18,
+    center: storeLocation,
+    zoom: 19,
   });
 
-  const marker = new window.naver.maps.Marker({
-    position: fallbackLocation,
+  new window.naver.maps.Marker({
+    position: storeLocation,
     map,
     title: STORE.name,
-  });
-
-  const service = window.naver.maps.Service;
-  if (!service?.geocode) return;
-
-  resolveStoreLatLng(service).then((resolved) => {
-    if (!resolved) return;
-    const exactLocation = new window.naver.maps.LatLng(resolved.lat, resolved.lng);
-    map.setCenter(exactLocation);
-    marker.setPosition(exactLocation);
+    icon: {
+      url: "https://ssl.pstatic.net/static/maps/mantle/1x/marker-default.png",
+      size: new window.naver.maps.Size(22, 33),
+      anchor: new window.naver.maps.Point(11, 45),
+    },
   });
 }
 
