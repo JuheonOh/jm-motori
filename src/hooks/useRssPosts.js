@@ -29,13 +29,26 @@ function toThumbnailProxyUrl(url, fallback = fallbackThumb) {
   let parsed;
   try { parsed = new URL(safeUrl); } catch { return fallback; }
   if (parsed.hostname === "wsrv.nl" && parsed.pathname === "/" && parsed.searchParams.has("url")) {
+    const source = parsed.searchParams.get("url");
+    try {
+      const original = new URL(/^https?:\/\//i.test(source) ? source : `https://${source}`);
+      if (original.hostname === "blogthumb.pstatic.net" && /^s\d+$/.test(original.searchParams.get("type") || "")) {
+        original.searchParams.set("type", "w1");
+        parsed.searchParams.set("url", original.href);
+      }
+    } catch {
+      return fallback;
+    }
     parsed.searchParams.set("fit", "contain");
     parsed.searchParams.set("w", "960");
     parsed.searchParams.set("h", "720");
     return parsed.href;
   }
 
-  const protocolLessUrl = safeUrl.replace(/^https?:\/\//i, "");
+  if (parsed.hostname === "blogthumb.pstatic.net" && /^s\d+$/.test(parsed.searchParams.get("type") || "")) {
+    parsed.searchParams.set("type", "w1");
+  }
+  const protocolLessUrl = parsed.href.replace(/^https?:\/\//i, "");
   return `${THUMB_PROXY_BASE}${encodeURIComponent(protocolLessUrl)}${THUMB_PROXY_PARAMS}`;
 }
 
