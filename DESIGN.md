@@ -1,5 +1,15 @@
+# 현재 디자인 — 리뉴얼 전 복원
+
+2026-10-10: 운영 페이지의 디자인을 리뉴얼 커밋 `d3666b1` 직전인
+`a697231` 기준으로 복원합니다. 어두운 배경, 전체 화면 매장 사진 히어로,
+옐로 강조 색상과 기존 서비스·정비 사례·방문 안내 레이아웃을 사용합니다.
+RSS 수집 및 오류 처리와 버전 비교 페이지는 유지합니다.
+아래 v3/v4 지침은 과거 디자인 기록이며 현재 루트 화면에 적용하지 않습니다.
+
+---
+
 # v4 — 정비소 소개 사이트 리뉴얼
-Active · 2026-10-02. This v4 direction supersedes historical visual/layout guidance below.
+Historical · 2026-10-02. Preserved as a comparison snapshot only.
 
 ## Primary viewport refinement
 1920×1080 desktop is the primary design target. Use a 1560px content width (180px side margins), 104px hero heading, large storefront photograph and 18px introduction. Header, introduction and yellow service strip fill the first 1080px viewport. Desktop rules start at 1440px; preserve smaller desktop/tablet/mobile layouts. Scale section headings, body copy, cards and contact/map together. Verify a 1920×1080 screenshot and desktop geometry alongside existing responsive checks.

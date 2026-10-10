@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { STORE } from "../constants";
+import { useEffect, useRef, useState } from "react";
+import { NAVER_MAP_SEARCH_URL, STORE } from "../constants";
 
 const NAVER_MAP_CLIENT_ID = (import.meta.env.VITE_NAVER_MAP_CLIENT_ID || "").trim();
 const NAVER_MAP_SCRIPT_ID = "naver-map-sdk";
@@ -15,6 +15,7 @@ function renderFallback(container) {
       width="100%"
       height="100%"
       style="border:0"
+      loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
     ></iframe>
   `;
@@ -76,20 +77,24 @@ function renderNaverMap(container) {
 
 export default function MapPanel() {
   const mapRef = useRef(null);
+  const [mapMode, setMapMode] = useState("loading");
 
   useEffect(() => {
     const container = mapRef.current;
     if (!container) return undefined;
 
     if (!NAVER_MAP_CLIENT_ID) {
+      setMapMode("fallback");
       renderFallback(container);
       return undefined;
     }
 
     const handleLoad = () => {
       if (window.naver?.maps) {
+        setMapMode("naver");
         renderNaverMap(container);
       } else {
+        setMapMode("fallback");
         renderFallback(container);
       }
     };
@@ -98,6 +103,7 @@ export default function MapPanel() {
       if (targetScript) {
         targetScript.dataset.loadState = "error";
       }
+      setMapMode("fallback");
       renderFallback(container);
     };
 
@@ -109,10 +115,13 @@ export default function MapPanel() {
     const reusableScript = document.getElementById(NAVER_MAP_SCRIPT_ID);
     if (reusableScript) {
       if (window.naver?.maps) {
+        setMapMode("naver");
         renderNaverMap(container);
       } else if (reusableScript.dataset.loadState === "loaded" || reusableScript.dataset.loadState === "error") {
+        setMapMode("fallback");
         renderFallback(container);
       } else {
+        setMapMode("loading");
         const handleReusableError = () => {
           handleError(reusableScript);
         };
@@ -131,6 +140,7 @@ export default function MapPanel() {
     script.id = NAVER_MAP_SCRIPT_ID;
     script.async = true;
     script.src = NAVER_MAP_SCRIPT_SRC;
+    setMapMode("loading");
     const onScriptLoad = () => {
       script.dataset.loadState = "loaded";
       handleLoad();
@@ -149,11 +159,39 @@ export default function MapPanel() {
   }, []);
 
   return (
-    <div
-      ref={mapRef}
-      role="region"
-      aria-label="JM모토리 위치 지도"
-      className="map-panel"
-    />
+    <div className="overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(180deg,#171a1f_0%,#111317_100%)] shadow-[0_22px_52px_rgba(0,0,0,0.35)]">
+      <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+        <div>
+          <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[#ffc107]">위치 안내</p>
+          <p className="mt-1 text-sm font-extrabold text-white">JM MOTORI 위치</p>
+        </div>
+      </div>
+
+      <div className="relative">
+        <div className="h-90 w-full bg-slate-800" ref={mapRef} />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.75)_100%)] p-4">
+          <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#ffc107]">주소</p>
+          <p className="mt-1 text-sm font-bold text-white">{STORE.roadAddress}</p>
+          <p className="mt-0.5 text-xs text-slate-300">{STORE.jibunAddress}</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-2 border-t border-white/10 p-3 max-[760px]:grid-cols-1">
+        <a
+          href={NAVER_MAP_SEARCH_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center rounded-[10px] border border-[#03c75a]/45 bg-[#03c75a]/12 px-3 py-2.5 text-xs font-extrabold text-[#68e89d] transition hover:bg-[#03c75a]/20"
+        >
+          네이버에서 크게 보기
+        </a>
+        <a
+          href={`tel:${STORE.phone}`}
+          className="inline-flex items-center justify-center rounded-[10px] border border-[#ffc107]/45 bg-[#ffc107]/12 px-3 py-2.5 text-xs font-extrabold text-[#ffd34d] transition hover:bg-[#ffc107]/20"
+        >
+          전화 상담 연결
+        </a>
+      </div>
+    </div>
   );
 }
