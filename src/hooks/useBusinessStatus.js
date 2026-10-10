@@ -16,7 +16,7 @@ function getCurrentStatus() {
   const weekdayOpen = minutes >= 540 && minutes <= 1140;
 
   if (isSaturday) {
-    return { text: "토요일 휴무", className: CLOSED_BADGE_CLASS };
+    return null;
   }
 
   if (isWeekday && weekdayOpen) {

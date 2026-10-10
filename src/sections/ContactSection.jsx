@@ -35,7 +35,9 @@ export default function ContactSection({ containerClass, image1, image2, image3,
             <article className="rounded-[14px] border border-white/10 bg-[#15181b] p-5">
               <div className="flex items-center justify-between gap-3">
                 <h3 className="m-0 text-[1.05rem] text-[#ffc107]">매장 정보</h3>
-                <span className={businessStatus.className}>{businessStatus.text}</span>
+                {businessStatus && (
+                  <span className={businessStatus.className}>{businessStatus.text}</span>
+                )}
               </div>
               <dl className="mt-4 grid gap-4">
                 <div>
