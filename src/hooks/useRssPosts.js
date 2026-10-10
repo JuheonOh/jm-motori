@@ -63,8 +63,7 @@ function extractThumbnail(htmlText) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(`<div>${htmlText}</div>`, "text/html");
   const image = doc.querySelector("img");
-  if (!image) return fallbackThumb;
-  return toThumbnailProxyUrl(image.getAttribute("src"), fallbackThumb);
+  return image?.getAttribute("src") || fallbackThumb;
 }
 
 function toDateLabel(pubDateRaw) {
@@ -111,7 +110,7 @@ function readLocalCache() {
 
 function writeLocalCache(items) {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ cachedAt: Date.now(), items }));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ items }));
   } catch {
     // Ignore quota/privacy mode errors.
   }
@@ -194,23 +193,14 @@ async function fetchFromRssProxy() {
   }
 
   return items.map((item, index) => {
-    const title = (item.querySelector("title")?.textContent || "제목 없음").trim();
-    const link = toSafeUrl(item.querySelector("link")?.textContent?.trim(), BLOG_URL);
     const descriptionHtml = item.querySelector("description")?.textContent || "";
-    const summaryRaw = normalizeText(descriptionHtml);
-    const pubDate = item.querySelector("pubDate")?.textContent || "";
-
-    return {
-      id: `${link}-${index}`,
-      title,
-      link,
-      summary:
-        summaryRaw.length > 92
-          ? `${summaryRaw.slice(0, 92)}...`
-          : summaryRaw || "포스팅 미리보기가 준비되지 않았습니다.",
+    return normalizePost({
+      title: item.querySelector("title")?.textContent,
+      link: item.querySelector("link")?.textContent,
+      summary: normalizeText(descriptionHtml),
       thumbnail: extractThumbnail(descriptionHtml),
-      dateLabel: toDateLabel(pubDate),
-    };
+      pubDate: item.querySelector("pubDate")?.textContent,
+    }, index);
   });
 }
 
@@ -238,6 +228,7 @@ export function useRssPosts() {
         setLoading(true);
       }
 
+      let staticError;
       try {
         const staticItems = await fetchFromStaticJson();
         if (!isMounted) return;
@@ -245,20 +236,22 @@ export function useRssPosts() {
         writeLocalCache(staticItems);
         setLoading(false);
         return;
-      } catch {
-        // Fallback to live RSS proxy if static cache load fails.
+      } catch (fetchError) {
+        if (!isMounted) return;
+        staticError = fetchError;
       }
 
       try {
         const liveItems = await fetchFromRssProxy();
         if (!isMounted) return;
+        console.warn("[blog-feed] Static feed unavailable; loaded live RSS.", staticError);
         setPosts(liveItems);
         writeLocalCache(liveItems);
       } catch (fetchError) {
         if (!isMounted) return;
-        if (!cached?.length) {
-          setError(fetchError);
-        }
+        const refreshError = new AggregateError([staticError, fetchError], "Blog feed refresh failed");
+        console.warn("[blog-feed] Refresh failed; retaining available posts.", refreshError);
+        setError(refreshError);
       } finally {
         if (isMounted) {
           setLoading(false);
