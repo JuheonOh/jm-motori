@@ -25,7 +25,7 @@ function renderNaverMap(container) {
   const fallbackLocation = new window.naver.maps.LatLng(STORE.lat, STORE.lng);
   const map = new window.naver.maps.Map(container, {
     center: fallbackLocation,
-    zoom: 17,
+    zoom: 18,
   });
 
   const marker = new window.naver.maps.Marker({
